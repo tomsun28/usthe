@@ -25,6 +25,7 @@ export class RestApiManageComponent implements OnInit {
   apiTeam: any[];
   // -1表示获取分类列信息(初始化时用) 0表示获取全部API信息 其他表示获取所选择分类id所下属的API信息
   selectTeamId: number = 0;
+  selectTeamName: string = '资源类别';
 
   // app-alert info
   alert: AlertEnum = AlertEnum.DANGER;
@@ -74,8 +75,9 @@ export class RestApiManageComponent implements OnInit {
     );
   }
 
-  selectTeam(teamId: number) {
+  selectTeam(teamId: number, teamName: string) {
     this.selectTeamId = teamId;
+    this.selectTeamName = teamName;
     this.ngOnInit();
   }
 

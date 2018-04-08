@@ -19,11 +19,11 @@
 
             <div class="btn-group" dropdown>
             <button id="button-api" type="button" dropdownToggle class="btn btn-primary dropdown-toggle" aria-controls="dropdown-api">
-              资源类别<span class="caret"></span>
+              {{selectTeamName}}<span class="caret"></span>
             </button>
             <ul id="dropdown-api" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-api">
-              <li role="menuitem" (click)="selectTeam(0)" ><a class="dropdown-item">全部</a></li>
-              <li *ngFor="let item of apiTeam" role="menuitem" (click)="selectTeam(item.id)"><a class="dropdown-item">{{item.name}}</a></li>
+              <li role="menuitem" (click)="selectTeam(0,'全部')" ><a class="dropdown-item">全部</a></li>
+              <li *ngFor="let item of apiTeam" role="menuitem" (click)="selectTeam(item.id, item.name)"><a class="dropdown-item">{{item.name}}</a></li>
             </ul>
             </div>
           </div>

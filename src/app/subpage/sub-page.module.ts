@@ -5,6 +5,7 @@ import {ShareModule} from '../common/share.module';
 import {AmexioWidgetModule} from 'amexio-ng-extensions';
 import { MenuTreeItemComponent } from './resource/menu-manage/menu-tree-item/menu-tree-item.component';
 import {BsDropdownModule, ModalModule, PaginationModule} from 'ngx-bootstrap';
+import { RoleManageComponent } from './resource/role-manage/role-manage.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import {BsDropdownModule, ModalModule, PaginationModule} from 'ngx-bootstrap';
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot(),
   ],
-  declarations: [MenuManageComponent, RestApiManageComponent, MenuTreeItemComponent],
+  declarations: [MenuManageComponent, RestApiManageComponent, MenuTreeItemComponent, RoleManageComponent],
   exports: []
 
 })

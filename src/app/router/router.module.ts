@@ -5,6 +5,7 @@ import {IndexComponent} from '../index/index.component';
 import {RegisterComponent} from '../loginRegister/register/register.component';
 import {MenuManageComponent} from '../subpage/resource/menu-manage/menu-manage.component';
 import {RestApiManageComponent} from '../subpage/resource/rest-api-manage/rest-api-manage.component';
+import {RoleManageComponent} from '../subpage/resource/role-manage/role-manage.component';
 
 const routes: Routes = [
   // 应用的默认路径,当URL为空时访问,作为应用的起点
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: '', component: MenuManageComponent },
       { path: 'menu', component: MenuManageComponent },
       { path: 'api', component: RestApiManageComponent },
+      { path: 'role', component: RoleManageComponent },
 
     ]},
 

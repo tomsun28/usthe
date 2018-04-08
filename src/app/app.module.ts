@@ -16,6 +16,7 @@ import {LoginService} from './service/login.service';
 import {RegisterService} from './service/register.service';
 import {ResourceService} from './service/resource.service';
 import {ModalModule} from 'ngx-bootstrap';
+import {RoleService} from './service/role.service';
 
 
 
@@ -39,7 +40,8 @@ import {ModalModule} from 'ngx-bootstrap';
     AppConfig,
     LoginService,
     RegisterService,
-    ResourceService
+    ResourceService,
+    RoleService
   ],
   bootstrap: [AppComponent]
 })
