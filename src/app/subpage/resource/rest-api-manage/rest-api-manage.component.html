@@ -1,0 +1,158 @@
+<app-alert [alert]="alert" [timeout]="1500" [msg]="msg" (msg_)="reloadAlertMsg($event)" ></app-alert>
+<!--<my-content-header [firstName]="firstName" [secondName]="secondName"></my-content-header>-->
+
+<app-content-header [firstName]="firstName" [secondName]="secondName" [detail]="detail"></app-content-header>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">rest api</h3>
+          <div class="btn-group" style="margin-left:10px;">
+            <button type="button" class="btn btn-info" (click)="addApi(modalApiTemplate)"><i class="fa fa-plus"></i>
+            </button>
+            <button type="button" class="btn btn-info" (click)="editApi(modalApiTemplate)"><i class="fa fa-pencil"></i>
+            </button>
+            <button type="button" class="btn btn-info" (click)="deleteApi()"><i class="fa fa-trash"></i></button>
+
+            <div class="btn-group" dropdown>
+            <button id="button-api" type="button" dropdownToggle class="btn btn-primary dropdown-toggle" aria-controls="dropdown-api">
+              资源类别<span class="caret"></span>
+            </button>
+            <ul id="dropdown-api" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-api">
+              <li role="menuitem" (click)="selectTeam(0)" ><a class="dropdown-item">全部</a></li>
+              <li *ngFor="let item of apiTeam" role="menuitem" (click)="selectTeam(item.id)"><a class="dropdown-item">{{item.name}}</a></li>
+            </ul>
+            </div>
+          </div>
+
+          <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="box-body table-responsive">
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th style="width: 8px;"></th>
+              <th>ID</th>
+              <th>名称</th>
+              <th>编码</th>
+              <th>URI</th>
+              <th>访问方式</th>
+              <th>状态</th>
+            </tr>
+            <tr *ngFor="let item of apis" (click)="selectApi(item)" [ngClass]="{'active': (selectedApi?.id===item.id)}" >
+             <!--<td><input type="checkbox" checked="{{selectedApi?.id===item.id ? 'checked':''}}" class="mini" (click)="selectApi(item);" ></td>-->
+              <td style="width: 8px;"></td>
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.code}}</td>
+              <td>{{item.uri}}</td>
+              <td>{{item.method}}</td>
+              <td>{{item.status===1 ? '正常' : '禁用'}}</td>
+            </tr>
+            <tr>
+              <td colspan="9">
+                <form class="form-inline" style="float:right;">
+                  <div class="form-group">
+                    <pagination [disabled]="disabled" [totalItems]="totalItems"
+                                [itemsPerPage]="pageSize"
+                                (pageChanged)="pageChanged($event)"
+                                [maxSize]="20" [boundaryLinks]="true" class="pagination-sm"
+                                previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                    </pagination>
+                  </div>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+          <div>选中资源：<span style="font-weight: bold;">{{selectedApi?.name}}</span></div>
+        </div>
+
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+  </div>
+</section>
+
+
+<!-- add modal -->
+<ng-template #modalApiTemplate>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="bsModalRef.hide()" ><span
+          aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" style="color: #00c0ef;font-weight: bolder;">{{modalName}}</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group has-feedback">
+            <label class="control-label">编码</label>
+            <input [(ngModel)]="api.code" type="text" name="code" class="form-control" placeholder=""
+                   readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">名称</label>
+            <input [(ngModel)]="api.name" type="text" name="name" class="form-control" placeholder=""
+                   readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">URI</label>
+            <input [(ngModel)]="api.uri" type="text" name="uri" class="form-control" placeholder=""
+                   readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">API类别</label>
+            <select [(ngModel)]="api.parentId" name="parentId" class="form-control">
+              <option value="-1">--无--</option>
+              <option *ngFor="let item of apiTeam" value="{{item.id}}">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">类型</label>
+            <select [(ngModel)]="api.type" name="type" class="form-control">
+              <option value="2">--API资源--</option>
+              <option value="3">--API类别--</option>
+            </select>
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">访问方式</label>
+            <select [(ngModel)]="api.method" name="method" class="form-control">
+              <option value="POST">POST</option>
+              <option value="GET">GET</option>
+              <option value="PUT">PUT</option>
+              <option value="DELETE">DELETE</option>
+              <option value="PATCH">PATCH</option>
+            </select>
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">状态</label>
+            <select [(ngModel)]="api.status" name="status" class="form-control">
+              <option value="1">正常</option>
+              <option value="9">禁用</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">取消</button>
+        <button type="button" class="btn btn-primary" (click)="submitModal()">提交</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

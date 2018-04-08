@@ -1,0 +1,7 @@
+<div style="position: absolute;z-index: 200;left:50%;margin-left:-130px;width:260px;" *ngIf="msgFlag">
+  <div class="alert {{alertClass}} alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4> {{msgLabel}}</h4>
+    <div style="min-width:100px;color: #c1e2b3"> {{_msg}}</div>
+  </div>
+</div>

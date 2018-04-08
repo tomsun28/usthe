@@ -1,0 +1,55 @@
+
+<app-alert [alert]="alert"  [timeout]="1500" [msg]="msg" (msg_)="reloadAlertMsg($event)" ></app-alert>
+
+<div class="container-fluid wrapper">
+  <div class="register-box">
+    <!-- register-logo -->
+    <div class="register-logo">
+      <!--<img src="#"/>-->
+      <a routerLink="/"  routerLinkActive="click"><b style="color: #00a7d0">USThE</b></a>
+    </div>
+    <!-- register-body -->
+    <div class="register-box-body" style="background-color: #7adddd">
+      <p class="register-box-msg"><b style="font-size: medium">注册</b></p>
+      <form>
+        <!-- register-appId -->
+        <div class="form-group has-feedback">
+          <input [(ngModel)]="uid" type="text" name="uid" class="form-control" placeholder="账户名称"
+                 readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          <span class="fa fa-user form-control-feedback"></span>
+        </div>
+        <!-- register-appId -->
+        <div class="form-group has-feedback">
+          <input [(ngModel)]="username" type="text" name="username" class="form-control" placeholder="用户名"
+                 readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <!-- register-password -->
+        <div class="form-group has-feedback">
+          <input [(ngModel)]="password" type="password" name="password" class="form-control" placeholder="密码"
+                 readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          <span class="fa fa-lock form-control-feedback"></span>
+        </div>
+
+        <!-- register-submit -->
+        <div class="row">
+          <div class="col-xs-8">
+            <!--<div class="checkbox">-->
+            <!--<label>-->
+            <!--<input type="checkbox">记住我-->
+            <!--</label>-->
+            <!--</div>-->
+            <button (click)="register()" type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+          </div>
+          <!-- login-submit -->
+          <div class="col-xs-4">
+            <button routerLink="/login" routerLinkActive="active" type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+          </div>
+        </div>
+      </form>
+      <!-- register-social -->
+
+
+    </div>
+  </div>
+</div>

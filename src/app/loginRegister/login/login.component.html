@@ -1,0 +1,46 @@
+<app-alert [alert]="alert" [timeout]="1500" [msg]="msg" (msg_)="reloadAlertMsg($event)"></app-alert>
+<div class="container-fluid wrapper">
+  <div class="login-box">
+    <!-- login-logo -->
+    <div class="login-logo">
+      <!--<img src="/assets/image/avatar.jpg" style="max-height: 30px" />-->
+      <a routerLink="/" routerLinkActive="click"><b style="color: #00a7d0">USThE</b></a>
+    </div>
+    <!-- login-body -->
+    <div class="login-box-body" style="background-color: #c1e2b3">
+      <p class="login-box-msg"><b style="font-size: medium">登录</b></p>
+      <form>
+        <!-- login-appId -->
+        <div class="form-group has-feedback">
+          <input [(ngModel)]="appId" type="text" name="appId" class="form-control" placeholder="用户名/电话/手机号"
+                 readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <!-- login-password -->
+        <div class="form-group has-feedback">
+          <input [(ngModel)]="password" type="password" name="password" class="form-control" placeholder="密码"
+                 readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <!-- login-remember -->
+        <div class="row">
+          <div class="col-xs-8">
+            <!--<div class="checkbox">-->
+            <!--<label>-->
+            <!--<input type="checkbox">记住我-->
+            <!--</label>-->
+            <!--</div>-->
+            <button (click)="login()" type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+          </div>
+          <!-- login-submit -->
+          <div class="col-xs-4">
+            <button routerLink="../register" routerLinkActive="active" type="submit"
+                    class="btn btn-primary btn-block btn-flat">注册
+            </button>
+          </div>
+        </div>
+      </form>
+      <!-- login-social -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<ul class="sidebar-menu" data-widget="tree">
+  <!--若为无下级的菜单-->
+  <li  *ngIf="menu.type === 1 && menu.status === 1 && menu.children == ''" [ngClass]="{'active':(menu.isOpen)}">
+    <a routerLink="{{menu.uri}}" routerLinkActive="active">
+      <i class="{{menu.icon}}"></i>
+      <span>{{menu.name}}</span>
+      <!--<span class="pull-right-container">-->
+      <!--<i class="fa fa-angle-left pull-right"></i>-->
+      <!--</span>-->
+    </a>
+  </li>
+
+
+  <!--若为有下级的菜单-->
+  <li class="treeview" *ngIf=" menu.status === 1 && menu.type === 1 && menu.children != ''" [ngClass]="{'active':(menu.isOpen)}">
+    <a (click)="changeMenuStatus(menu)">
+      <i class="{{menu.icon}}"></i>
+      <span>{{menu.name}}</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <app-menu-item *ngFor="let menuItem of menu.children" [menu]="menuItem" ></app-menu-item>
+    </ul>
+  </li>
+</ul>

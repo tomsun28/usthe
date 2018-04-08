@@ -1,0 +1,148 @@
+<app-alert [alert]="alert" [timeout]="1500" [msg]="msg" (msg_)="reloadAlertMsg($event)" ></app-alert>
+<!--<my-content-header [firstName]="firstName" [secondName]="secondName"></my-content-header>-->
+
+<app-content-header [firstName]="firstName" [secondName]="secondName" [detail]="detail"></app-content-header>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">导航菜单</h3>
+          <div class="btn-group" style="margin-left:10px;">
+            <button type="button" class="btn btn-info" (click)="addMenu(modalMenuTemplate)"><i class="fa fa-plus"></i>
+            </button>
+            <button type="button" class="btn btn-info" (click)="editMenu(modalMenuTemplate)"><i class="fa fa-pencil"></i>
+            </button>
+            <button type="button" class="btn btn-info" (click)="deleteMenu()"><i class="fa fa-trash"></i></button>
+          </div>
+
+          <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.box-header
+                [dataReader]="'data'" [pageSize]="2"
+                [title]="'菜单列表'" [httpMethod]="'get'"
+                [httpUrl]="'assets/data/menus.json'"
+                (selectedRecord)="selectedMenu1($event)">
+         -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-4">
+              <aside class="sidebar-expanded-on-hover">
+                <section class="sidebar">
+                  <ul class="sidebar-menu" data-widget="tree">
+                    <li class=""></li>
+
+                    <app-menu-tree-item (selectedMenu)="getSelectedMenu($event)" *ngFor="let menu of menuTree"
+                                        [menu]="menu"></app-menu-tree-item>
+
+                  </ul>
+                </section>
+              </aside>
+            </div>
+          </div>
+
+          <div>选中菜单：<span style="font-weight: bold;">{{selectedMenu?.name}}</span></div>
+        </div>
+
+        <!--<div class="box-body">-->
+
+        <!--<amexio-row>-->
+        <!--<amexio-column size="12">-->
+        <!--<amexio-card [footer]="false" [header]="false">-->
+        <!--<amexio-body>-->
+        <!--<amexio-tree-data-table [data]="menuTree"  [title]="'菜单列表'"  (selectedRecord)="getSelectedMenu($event)" >-->
+        <!--<amexio-data-table-column [data-index]="'name'" [data-type]="'string'" [hidden]="false" [text]="'名称'"></amexio-data-table-column>-->
+        <!--<amexio-data-table-column [data-index]="'code'" [data-type]="'string'" [hidden]="false" [text]="'编码'"></amexio-data-table-column>-->
+        <!--<amexio-data-table-column [data-index]="'icon'" [data-type]="'string'" [hidden]="false" [text]="'图标'"></amexio-data-table-column>-->
+        <!--</amexio-tree-data-table>-->
+        <!--</amexio-body>-->
+        <!--</amexio-card>-->
+        <!--</amexio-column>-->
+        <!--</amexio-row>-->
+
+        <!--<div >选中菜单：<span style="font-weight: bold;">{{selectedMenu?.title}}</span></div>-->
+        <!--</div>-->
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+  </div>
+</section>
+
+
+<!-- add modal -->
+<ng-template #modalMenuTemplate>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="bsModalRef.hide()" ><span
+          aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" style="color: #00c0ef;font-weight: bolder;">{{modalName}}</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group has-feedback">
+            <label class="control-label">编码</label>
+            <input [(ngModel)]="menu.code" type="text" name="code" class="form-control" placeholder=""
+                   readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">名称</label>
+            <input [(ngModel)]="menu.name" type="text" name="name" class="form-control" placeholder=""
+                   readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">URI</label>
+            <input [(ngModel)]="menu.uri" type="text" name="uri" class="form-control" placeholder=""
+                   readonly onfocus="this.removeAttribute('readonly');" (keyup.enter)="check()">
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">父菜单</label>
+            <select [(ngModel)]="menu.parentId" name="parentId" class="form-control">
+              <option value="-1">--置顶--</option>
+              <option *ngFor="let item of menuList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">类型</label>
+            <select [(ngModel)]="menu.type" name="type" class="form-control">
+              <option value="1">--菜单--</option>
+            </select>
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">图标</label>
+            <a><i class="{{menu?.icon}}"></i></a>
+            <select [(ngModel)]="menu.icon" name="icon" class="form-control">
+              <!--这里遍历菜单图标库-->
+              <option *ngFor="let item of appMenuIcon" value="{{item}}">
+                {{item}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group has-feedback">
+            <label class="control-label">状态</label>
+            <select [(ngModel)]="menu.status" name="status" class="form-control">
+              <option value="1">正常</option>
+              <option value="9">禁用</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">取消</button>
+        <button type="button" class="btn btn-primary" (click)="submitModal()">提交</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

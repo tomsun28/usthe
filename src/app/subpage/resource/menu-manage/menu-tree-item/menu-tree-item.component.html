@@ -1,0 +1,33 @@
+<ul class="sidebar-menu" data-widget="tree">
+  <!--若为无下级的菜单-->
+  <li  *ngIf="menu.type === 1 && menu.children == ''" [ngClass]="{'active':(menu.isOpen)}">
+    <a (click)="focusOnThis(menu)">
+      <span class="small">图标:</span>
+      <i class="{{menu.icon}} large"></i>
+      <span class="small">名称:</span>
+      <span>{{menu.name}}</span>
+      <span class="small">编码:</span>
+      <span>menu.code</span>
+    </a>
+  </li>
+
+
+  <!--若为有下级的菜单-->
+  <li class="treeview" *ngIf="menu.type === 1 && menu.children != ''" [ngClass]="{'active':(menu.isOpen)}">
+    <a (click)="changeMenuStatus(menu)">
+      <span class="small">图标:</span>
+      <i class="{{menu.icon}}"></i>
+      <span class="small">名称:</span>
+      <span>{{menu.name}}</span>
+      <span class="small">编码:</span>
+      <span>menu.code</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <app-menu-tree-item (selectedMenu)="focusOnThis($event)"  *ngFor="let menuItem of menu.children" [menu]="menuItem" ></app-menu-tree-item>
+    </ul>
+  </li>
+</ul>
+
