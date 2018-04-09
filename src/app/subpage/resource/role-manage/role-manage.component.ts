@@ -4,7 +4,6 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {MenuTreeNode} from '../../../pojo/MenuTreeNode';
 import {RoleVO} from '../../../pojo/RoleVO';
 import {RoleService} from '../../../service/role.service';
-import {ResponseVO} from '../../../pojo/ResponseVO';
 
 @Component({
   selector: 'app-role-manage',
@@ -253,7 +252,22 @@ export class RoleManageComponent implements OnInit {
   }
 
   deleteRoleApi() {
-
+    if (this.selectedRoleApi == null || this.selectedRoleApi === undefined) {
+      this.msg = '请选择API';
+      return;
+    } else {
+      const deleteApi$ = this.roleService.deleteRoleAuthorityApi(this.selectedRole.id, this.selectedRoleApi.id).subscribe(
+        data => {
+          if (data.meta.code === 6666) {
+            this.msg = '删除成功';
+            deleteApi$.unsubscribe();
+            this.getRoleApis(this.selectedRole.id, this.apiCurrentPage, this.apiPageSize);
+          } else {
+            this.msg = '删除失败';
+          }
+        }
+      );
+    }
   }
 
   apiPageChanged(event: any) {
@@ -286,6 +300,22 @@ export class RoleManageComponent implements OnInit {
 
   deleteRoleMenu() {
 
+    if (this.selectedRoleMenu == null || this.selectedRoleMenu === undefined) {
+      this.msg = '请选择菜单';
+      return;
+    } else {
+      const deleteMenu$ = this.roleService.deleteRoleAuthorityMenu(this.selectedRole.id, this.selectedRoleMenu.id).subscribe(
+        data => {
+          if (data.meta.code === 6666) {
+            this.msg = '删除成功';
+            deleteMenu$.unsubscribe();
+            this.getRoleMenus(this.selectedRole.id, this.menuCurrentPage, this.menuPageSize);
+          } else {
+            this.msg = '删除失败';
+          }
+        }
+      );
+    }
   }
 
   menuPageChanged(event: any) {
@@ -318,6 +348,22 @@ export class RoleManageComponent implements OnInit {
 
   deleteRoleUser() {
 
+    if (this.selectedRoleUser == null || this.selectedRoleUser === undefined) {
+      this.msg = '请选择用户';
+      return;
+    } else {
+      const deleteUser$ = this.roleService.deleteUserAuthorityRole(this.selectedRoleUser.uid, this.selectedRole.id).subscribe(
+        data => {
+          if (data.meta.code === 6666) {
+            this.msg = '删除成功';
+            deleteUser$.unsubscribe();
+            this.getRoleUsers(this.selectedRole.id, this.userCurrentPage, this.userPageSize);
+          } else {
+            this.msg = '删除失败';
+          }
+        }
+      );
+    }
   }
 
   userPageChanged(event: any) {

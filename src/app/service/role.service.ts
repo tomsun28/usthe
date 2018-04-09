@@ -36,6 +36,11 @@ export class RoleService {
     return this.httpUtil.get(url);
   }
 
+  public deleteRoleAuthorityApi(roleId: number, apiId: number) {
+    const url = 'role/authority/resource' + '/' + roleId + '/' + apiId;
+    return this.httpUtil.delete(url);
+  }
+
   public getMenuByRoleId(roleId: number, currentPage: number, pageSize: number) {
     const url = 'role/menu' + '/' + roleId + '/' + currentPage + '/' + pageSize;
     return this.httpUtil.get(url);
@@ -46,6 +51,11 @@ export class RoleService {
     return this.httpUtil.get(url);
   }
 
+  public deleteRoleAuthorityMenu(roleId: number, menuId: number) {
+    const url = 'role/authority/resource' + '/' + roleId + '/' + menuId;
+    return this.httpUtil.delete(url);
+  }
+
   public getUserByRoleId(roleId: number, currentPage: number, pageSize: number) {
     const url = 'role/user' + '/' + roleId + '/' + currentPage + '/' + pageSize;
     return this.httpUtil.get(url);
@@ -54,5 +64,10 @@ export class RoleService {
   public getUserExtendByRoleId(roleId: number, currentPage: number, pageSize: number) {
     const url = 'role/user' + '/-/' + roleId + '/' + currentPage + '/' + pageSize;
     return this.httpUtil.get(url);
+  }
+
+  public deleteUserAuthorityRole(uid: string, roleId: number) {
+    const url = 'user/authority/role' + '/' + uid + '/' + roleId;
+    return this.httpUtil.delete(url);
   }
 }
