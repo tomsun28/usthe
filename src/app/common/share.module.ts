@@ -10,6 +10,7 @@ import {RightAsideComponent} from './right-aside/right-aside.component';
 import {FormsModule} from '@angular/forms';
 import { ContentHeaderComponent } from './content-header/content-header.component';
 import {ModalModule} from 'ngx-bootstrap';
+import {FormatUserStatusPipe} from '../util/format-user-status.pipe';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {ModalModule} from 'ngx-bootstrap';
     LeftAsideComponent,
     MenuItemComponent,
     RightAsideComponent,
-    ContentHeaderComponent
+    ContentHeaderComponent,
+    FormatUserStatusPipe
   ],
   exports: [
     CommonModule,
@@ -35,7 +37,8 @@ import {ModalModule} from 'ngx-bootstrap';
     LeftAsideComponent,
     MenuItemComponent,
     RightAsideComponent,
-    ContentHeaderComponent
+    ContentHeaderComponent,
+    FormatUserStatusPipe
   ]
 })
 

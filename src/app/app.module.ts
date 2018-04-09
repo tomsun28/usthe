@@ -17,6 +17,7 @@ import {RegisterService} from './service/register.service';
 import {ResourceService} from './service/resource.service';
 import {ModalModule} from 'ngx-bootstrap';
 import {RoleService} from './service/role.service';
+import {FormatUserStatusPipe} from './util/format-user-status.pipe';
 
 
 
@@ -41,7 +42,8 @@ import {RoleService} from './service/role.service';
     LoginService,
     RegisterService,
     ResourceService,
-    RoleService
+    RoleService,
+
   ],
   bootstrap: [AppComponent]
 })

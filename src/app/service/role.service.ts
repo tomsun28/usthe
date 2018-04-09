@@ -26,4 +26,33 @@ export class RoleService {
     return this.httpUtil.delete(url);
   }
 
+  public getApiByRoleId(roleId: number, currentPage: number, pageSize: number) {
+    const url = 'role/api' + '/' + roleId + '/' + currentPage + '/' + pageSize;
+    return this.httpUtil.get(url);
+  }
+
+  public getApiExtendByRoleId(roleId: number, currentPage: number, pageSize: number) {
+    const url = 'role/api' + '/-/' + roleId + '/' + currentPage + '/' + pageSize;
+    return this.httpUtil.get(url);
+  }
+
+  public getMenuByRoleId(roleId: number, currentPage: number, pageSize: number) {
+    const url = 'role/menu' + '/' + roleId + '/' + currentPage + '/' + pageSize;
+    return this.httpUtil.get(url);
+  }
+
+  public getMenuExtendByRoleId(roleId: number, currentPage: number, pageSize: number) {
+    const url = 'role/menu' + '/-/' + roleId + '/' + currentPage + '/' + pageSize;
+    return this.httpUtil.get(url);
+  }
+
+  public getUserByRoleId(roleId: number, currentPage: number, pageSize: number) {
+    const url = 'role/user' + '/' + roleId + '/' + currentPage + '/' + pageSize;
+    return this.httpUtil.get(url);
+  }
+
+  public getUserExtendByRoleId(roleId: number, currentPage: number, pageSize: number) {
+    const url = 'role/user' + '/-/' + roleId + '/' + currentPage + '/' + pageSize;
+    return this.httpUtil.get(url);
+  }
 }
