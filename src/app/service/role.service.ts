@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpUtil} from '../util/http-util';
+import {ParamMap, Params} from '@angular/router';
+import {HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class RoleService {
@@ -36,6 +38,12 @@ export class RoleService {
     return this.httpUtil.get(url);
   }
 
+  public roleAuthorityApi(roleId: number, apiId: number) {
+    const url = 'role/authority/resource';
+    const map = new HttpParams().append('roleId', roleId + '').append('resourceId', apiId + '');
+    return this.httpUtil.post(url, map);
+  }
+
   public deleteRoleAuthorityApi(roleId: number, apiId: number) {
     const url = 'role/authority/resource' + '/' + roleId + '/' + apiId;
     return this.httpUtil.delete(url);
@@ -51,6 +59,12 @@ export class RoleService {
     return this.httpUtil.get(url);
   }
 
+  public roleAuthorityMenu(roleId: number, menuId: number) {
+    const url = 'role/authority/resource';
+    const map = new HttpParams().append('roleId', roleId + '').append('resourceId', menuId + '');
+    return this.httpUtil.post(url, map);
+  }
+
   public deleteRoleAuthorityMenu(roleId: number, menuId: number) {
     const url = 'role/authority/resource' + '/' + roleId + '/' + menuId;
     return this.httpUtil.delete(url);
@@ -64,6 +78,12 @@ export class RoleService {
   public getUserExtendByRoleId(roleId: number, currentPage: number, pageSize: number) {
     const url = 'role/user' + '/-/' + roleId + '/' + currentPage + '/' + pageSize;
     return this.httpUtil.get(url);
+  }
+
+  public userAuthorityRole(uid: string, roleId: number) {
+    const url = 'user/authority/role';
+    const map = new HttpParams().append('uid', uid).append('roleId', roleId + '');
+    return this.httpUtil.post(url, map);
   }
 
   public deleteUserAuthorityRole(uid: string, roleId: number) {

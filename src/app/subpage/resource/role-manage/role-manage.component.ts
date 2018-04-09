@@ -22,6 +22,11 @@ export class RoleManageComponent implements OnInit {
   firstName: string = '资源管理';
   secondName: string = '角色管理';
   detail: string = '角色关联维护';
+  // modal-page分页
+  modalPageSize: number = 10;
+  modalTotalItems: number;
+  modalCurrentPage: number = 1;
+  modalSelected: number = 1; // 1 api 2 menu 3 user
 
   // ----api----
   selectedRoleApi: any;
@@ -31,9 +36,8 @@ export class RoleManageComponent implements OnInit {
   apiTotalItems: number;
   apiCurrentPage: number = 1;
   // api-modal info
-  apiModalPageSize: number = 10;
-  apiModalTotalItems: number;
-  apiModalCurrentPage: number = 1;
+
+  modalApis: any[];
   modalSelectedApi: any;
 
 
@@ -48,6 +52,7 @@ export class RoleManageComponent implements OnInit {
   menuModalPageSize: number = 10;
   menuModalTotalItems: number;
   menuModalCurrentPage: number = 1;
+  modalMenus: any[];
   modalSelectedMenu: any;
 
   // ----user----
@@ -61,6 +66,7 @@ export class RoleManageComponent implements OnInit {
   userModalPageSize: number = 10;
   userModalTotalItems: number;
   userModalCurrentPage: number = 1;
+  modalUsers: any[];
   modalSelectedUser: any;
 
   // ----role----
@@ -155,7 +161,6 @@ export class RoleManageComponent implements OnInit {
     }
   }
 
-
   submitRoleModal() {
     this.bsModalRef.hide();
     if (!this.check(this.role)) {
@@ -233,8 +238,8 @@ export class RoleManageComponent implements OnInit {
     const roleApi$ = this.roleService.getApiExtendByRoleId(roleId, currentPage, pageSize).subscribe(
       data => {
         if (data.meta.code === 6666) {
-          this.apis = data.data.data.list;
-          this.apiTotalItems = data.data.data.total;
+          this.modalApis = data.data.data.list;
+          this.modalTotalItems = data.data.data.total;
           roleApi$.unsubscribe();
         } else {
           this.msg = '获取失败';
@@ -246,9 +251,17 @@ export class RoleManageComponent implements OnInit {
   selectRoleApi(selectItem: any) {
     this.selectedRoleApi = selectItem;
   }
+  selectModalRoleApi(selectItem: any) {
+    this.modalSelectedApi = selectItem;
+  }
   addRoleApi(template: any) {
+    if (!this.selectedRole) {
+      this.msg = '请选择对应角色';
+      return;
+    }
+    this.getRoleExtendApis(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+    this.modalSelected = 1;
     this.bsModalRef = this.modalService.show(template);
-
   }
 
   deleteRoleApi() {
@@ -256,6 +269,9 @@ export class RoleManageComponent implements OnInit {
       this.msg = '请选择API';
       return;
     } else {
+      if (!confirm('确认删除?')) {
+        return;
+      }
       const deleteApi$ = this.roleService.deleteRoleAuthorityApi(this.selectedRole.id, this.selectedRoleApi.id).subscribe(
         data => {
           if (data.meta.code === 6666) {
@@ -269,6 +285,7 @@ export class RoleManageComponent implements OnInit {
       );
     }
   }
+
 
   apiPageChanged(event: any) {
     this.apiCurrentPage = event.page;
@@ -291,11 +308,35 @@ export class RoleManageComponent implements OnInit {
     );
   }
 
+  getRoleExtendMenus(roleId: number, currentPage: number, pageSize: number) {
+    const roleMenu$ = this.roleService.getMenuExtendByRoleId(roleId, currentPage, pageSize).subscribe(
+      data => {
+        if (data.meta.code === 6666) {
+          this.modalMenus = data.data.data.list;
+          this.modalTotalItems = data.data.data.total;
+          roleMenu$.unsubscribe();
+        } else {
+          this.msg = '获取失败';
+          roleMenu$.unsubscribe();
+        }
+      }
+    );
+  }
+
   selectRoleMenu(selectItem: any) {
     this.selectedRoleMenu = selectItem;
   }
-  addRoleMenu() {
-
+  selectModalRoleMenu(selectItem: any) {
+    this.modalSelectedMenu = selectItem;
+  }
+  addRoleMenu(template: any) {
+    if (!this.selectedRole) {
+      this.msg = '请选择对应角色';
+      return;
+    }
+    this.getRoleExtendMenus(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+    this.modalSelected = 2;
+    this.bsModalRef = this.modalService.show(template);
   }
 
   deleteRoleMenu() {
@@ -304,6 +345,9 @@ export class RoleManageComponent implements OnInit {
       this.msg = '请选择菜单';
       return;
     } else {
+      if (!confirm('确认删除?')) {
+        return;
+      }
       const deleteMenu$ = this.roleService.deleteRoleAuthorityMenu(this.selectedRole.id, this.selectedRoleMenu.id).subscribe(
         data => {
           if (data.meta.code === 6666) {
@@ -339,11 +383,35 @@ export class RoleManageComponent implements OnInit {
     );
   }
 
+  getRoleExtendUsers(roleId: number, currentPage: number, pageSize: number) {
+    const roleUser$ = this.roleService.getUserExtendByRoleId(roleId, currentPage, pageSize).subscribe(
+      data => {
+        if (data.meta.code === 6666) {
+          this.modalUsers = data.data.data.list;
+          this.modalTotalItems = data.data.data.total;
+          roleUser$.unsubscribe();
+        } else {
+          this.msg = '获取失败';
+          roleUser$.unsubscribe();
+        }
+      }
+    );
+  }
+
   selectRoleUser(selectItem: any) {
     this.selectedRoleUser = selectItem;
   }
-  addRoleUser() {
-
+  selectModalRoleUser(selectItem: any) {
+    this.modalSelectedUser = selectItem;
+  }
+  addRoleUser(template: any) {
+    if (!this.selectedRole) {
+      this.msg = '请选择对应角色';
+      return;
+    }
+    this.getRoleExtendUsers(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+    this.modalSelected = 3;
+    this.bsModalRef = this.modalService.show(template);
   }
 
   deleteRoleUser() {
@@ -352,6 +420,9 @@ export class RoleManageComponent implements OnInit {
       this.msg = '请选择用户';
       return;
     } else {
+      if (!confirm('确认删除?')) {
+        return;
+      }
       const deleteUser$ = this.roleService.deleteUserAuthorityRole(this.selectedRoleUser.uid, this.selectedRole.id).subscribe(
         data => {
           if (data.meta.code === 6666) {
@@ -371,7 +442,84 @@ export class RoleManageComponent implements OnInit {
     this.getRoleUsers(this.selectedRole.id, this.userCurrentPage, this.userPageSize);
   }
 
+  // --------------modal------------------
 
+  submitAddModal() {
+    this.bsModalRef.hide();
+    // api add
+    if (this.modalSelected === 1) {
+      if (!this.modalSelectedApi) {
+        this.msg = '请选择要添加的API';
+        return;
+      }
+      const addApi$ = this.roleService.roleAuthorityApi(this.selectedRole.id, this.modalSelectedApi.id).subscribe(
+        data => {
+          if (data.meta.code === 6666) {
+            this.msg = '授权添加成功';
+            this.getRoleApis(this.selectedRole.id, this.apiCurrentPage, this.apiPageSize);
+            addApi$.unsubscribe();
+          } else {
+            this.msg = '授权添加失败';
+            addApi$.unsubscribe();
+          }
+        }
+      );
+    }
+
+    // menu add
+    if (this.modalSelected === 2) {
+      if (!this.modalSelectedMenu) {
+        this.msg = '请选择要添加的菜单';
+        return;
+      }
+      const addMenu$ = this.roleService.roleAuthorityMenu(this.selectedRole.id, this.modalSelectedMenu.id).subscribe(
+        data => {
+          if (data.meta.code === 6666) {
+            this.msg = '授权添加成功';
+            this.getRoleMenus(this.selectedRole.id, this.menuCurrentPage, this.menuPageSize);
+            addMenu$.unsubscribe();
+          } else {
+            this.msg = '授权添加失败';
+            addMenu$.unsubscribe();
+          }
+        }
+      );
+    }
+
+    // user add
+    if (this.modalSelected === 3) {
+      if (!this.modalSelectedUser) {
+        this.msg = '请选择要添加的用户';
+        return;
+      }
+      const addUser$ = this.roleService.userAuthorityRole(this.modalSelectedUser.uid, this.selectedRole.id).subscribe(
+        data => {
+          if (data.meta.code === 6666) {
+            this.msg = '授权添加成功';
+            this.getRoleUsers(this.selectedRole.id, this.userCurrentPage, this.userPageSize);
+            addUser$.unsubscribe();
+          } else {
+            this.msg = '授权添加失败';
+            addUser$.unsubscribe();
+          }
+        }
+      );
+    }
+
+  }
+
+  modalPageChanged(event: any) {
+    this.modalCurrentPage = event.page;
+    switch (this.modalSelected) {
+      case 1 : this.getRoleExtendApis(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+      break;
+      case 2 : this.getRoleExtendApis(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+      break;
+      case 3 : this.getRoleExtendApis(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+      break;
+      default : break;
+    }
+  }
 
   // ----------alert----------------
   reloadAlertMsg(msg_: string) {
