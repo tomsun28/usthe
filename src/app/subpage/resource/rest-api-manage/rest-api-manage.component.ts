@@ -144,7 +144,7 @@ export class RestApiManageComponent implements OnInit {
     } else if (!api.type) {
       this.msg = '请选择类型';
       return false;
-    } else if (api.type === 1) {
+    } else if (api.type.toString() === '2') {
       if (!api.method) {
         this.msg = '请选择访问方式';
         return false;
@@ -164,6 +164,15 @@ export class RestApiManageComponent implements OnInit {
     if (!this.check(this.api)) {
       return;
     }
+    // 排除增加为类别时所选择的父类不是*分类集合*的情况
+
+    if (this.api.type.toString() === '3') {
+      if (this.api.parentId.toString() !== '110') {
+        this.msg = '~API类别~类型资源请加入~分类集合~中';
+        return;
+      }
+    }
+
     // modalFlag === 1 为增加API
     if (this.modalFlag === 1) {
       const addMenu$ = this.resourceService.addRestApi(this.api).subscribe(
