@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class AppConfig {
   public appConfig: any = {
-    baseUrl: 'http://192.168.0.3:80/api/',
+    baseUrl: 'http://localhost:80/api/',
     appName: 'usthe',
     version: '1.0.0',
   };

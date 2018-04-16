@@ -1,21 +1,23 @@
 # Stage 1, based on Node.js, to build and compile Angular
 
-FROM node:8.9.4-alpine as builder
+FROM node:8-alpine as builder
 
-COPY package.json ./
+COPY package.json package-lock.json ./
+
+RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
 ## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm i && mkdir /ng-app && mv ./node_modules ./ng-app
+RUN npm i && mkdir /ng-app && cp -R ./node_modules ./ng-app
 
 WORKDIR /ng-app
 
 COPY . .
 
-RUN npm run build:aot:prod
+RUN $(npm bin)/ng build --prod
 
 # Stage 2, based on Nginx, to have only the compiled app, ready for production with Nginx
 
-FROM nginx:1.13.9-alpine
+FROM nginx:1.13.3-alpine
 
 COPY ./nginx/nginx-custom.conf /etc/nginx/conf.d/default.conf
 
