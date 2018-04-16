@@ -13,8 +13,8 @@ WORKDIR /ng-app
 
 COPY . .
 
-RUN $(npm bin)/ng build --prod
-
+#RUN $(npm bin)/ng build --prod
+RUN npm build
 # Stage 2, based on Nginx, to have only the compiled app, ready for production with Nginx
 
 FROM nginx:1.13.3-alpine
