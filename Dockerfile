@@ -1,4 +1,4 @@
-# Stage 1, based on Node.js, to build and compile Angular
+# Stage 1, based on Node.js,  to build and compile Angular
 
 FROM node:8-alpine as builder
 
