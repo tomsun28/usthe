@@ -43,12 +43,13 @@ export class RegisterComponent implements OnInit {
       return;
     }
     // 获取tokenKey秘钥
-    this.registerService.getTokenKey().subscribe(
+    const getToken$ = this.registerService.getTokenKey().subscribe(
       data => {
 
         if (data.data.tokenKey !== undefined) {
           const tokenKey = data.data.tokenKey;
-          this.registerService.register(this.uid, this.username, this.password, tokenKey).subscribe(
+          getToken$.unsubscribe();
+          const register$ = this.registerService.register(this.uid, this.username, this.password, tokenKey).subscribe(
             data2 => {
               // 注册成功返回
               if (data2.meta.code === 2002) {
@@ -58,11 +59,14 @@ export class RegisterComponent implements OnInit {
                 this.router.navigateByUrl('/login');
               } else {
                 this.msg = '用户名密码错误';
+                this.alert = AlertEnum.WARNING;
               }
+              register$.unsubscribe();
             },
             error => {
               this.alert = AlertEnum.DANGER;
-              this.msg = error;
+              this.msg = '服务器开小差啦';
+              register$.unsubscribe();
             }
           );
         }

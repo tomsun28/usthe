@@ -13,7 +13,6 @@ import {MenuTreeNode} from '../../../pojo/MenuTreeNode';
 })
 export class MenuManageComponent implements OnInit {
 
-  private responseVO: ResponseVO;
 
   // modal-template info
   menu: MenuTreeNode = new MenuTreeNode();
@@ -44,13 +43,16 @@ export class MenuManageComponent implements OnInit {
   ngOnInit() {
     const resource$ = this.resourceService.getMenuList().subscribe(
       data => {
-        this.responseVO = data;
-        console.log(this.responseVO);
-        if (this.responseVO.meta.code === 6666) {
-          this.menuTree = this.responseVO.data.menuTree;
+        // this.responseVO = data;
+        if (data.meta.code === 6666) {
+          this.menuTree = data.data.menuTree;
           console.log(this.menuTree);
           resource$.unsubscribe();
           this.buildMenuList(this.menuTree);
+        } else if (data.meta.code === 1008) {
+          resource$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         }
       }
     );
@@ -119,13 +121,17 @@ export class MenuManageComponent implements OnInit {
     if (this.modalFlag === 1) {
       const addMenu$ = this.resourceService.addMenu(this.menu).subscribe(
         data => {
-          this.responseVO = data;
-          if (this.responseVO.meta.code === 6666) {
+          if (data.meta.code === 6666) {
             // add success
             this.alert = AlertEnum.SUCCESS;
             this.msg = '添加成功';
             addMenu$.unsubscribe();
             this.ngOnInit();
+          } else if (data.meta.code === 1008) {
+            addMenu$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
+
           }
         }
       );
@@ -134,13 +140,17 @@ export class MenuManageComponent implements OnInit {
     if (this.modalFlag === 2) {
       const modifyMenu$ = this.resourceService.modifyMenu(this.menu).subscribe(
         data => {
-          this.responseVO = data;
-          if (this.responseVO.meta.code === 6666) {
+          if (data.meta.code === 6666) {
             // modify success
             this.alert = AlertEnum.SUCCESS;
             this.msg = '修改成功';
             modifyMenu$.unsubscribe();
             this.ngOnInit();
+          } else if (data.meta.code === 1008) {
+            modifyMenu$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
+
           }
         }
       );
@@ -155,13 +165,17 @@ export class MenuManageComponent implements OnInit {
       if (confirm('确认删除' + this.selectedMenu.name)) {
         const deleteMenu$ = this.resourceService.deleteMenuByMenuId(this.selectedMenu.id).subscribe(
           data => {
-            this.responseVO = data;
-            if (this.responseVO.meta.code === 6666) {
+            if (data.meta.code === 6666) {
               // delete success
               this.alert = AlertEnum.SUCCESS;
               this.msg = '删除成功';
               deleteMenu$.unsubscribe();
               this.ngOnInit();
+            } else if (data.meta.code === 1008) {
+              deleteMenu$.unsubscribe();
+              this.alert = AlertEnum.DANGER;
+              this.msg = '您无此api权限';
+
             }
           }
         );

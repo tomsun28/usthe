@@ -22,8 +22,6 @@ export class LoginComponent implements OnInit {
 
   isDisabled: boolean = false;
 
-  responseData: ResponseVO;
-
   constructor(private loginService: LoginService,
               private authService: AuthService,
               private router: Router) {
@@ -50,29 +48,32 @@ export class LoginComponent implements OnInit {
     }
     this.isDisabled = true;
     // 获取tokenKey秘钥
-    this.loginService.getTokenKey().subscribe(
+    const getToken$ = this.loginService.getTokenKey().subscribe(
       data => {
-        this.responseData = data;
-        if (this.responseData.data.tokenKey !== undefined) {
-          const tokenKey = this.responseData.data.tokenKey;
-          this.loginService.login(this.appId, this.password, tokenKey).subscribe(
+        if (data.data.tokenKey !== undefined) {
+          const tokenKey = data.data.tokenKey;
+          getToken$.unsubscribe();
+          const login$ = this.loginService.login(this.appId, this.password, tokenKey).subscribe(
             data2 => {
               // 认证成功返回jwt
-              this.responseData = data2;
-              if (this.responseData.meta.code === 1003 && this.responseData.data.jwt != null) {
-                this.authService.updateAuthorizationToken(this.responseData.data.jwt);
+              if (data2.meta.code === 1003 && data2.data.jwt != null) {
+                this.authService.updateAuthorizationToken(data2.data.jwt);
                 this.authService.updateUid(this.appId);
-                this.authService.updateUser(this.responseData.data.user);
+                this.authService.updateUser(data2.data.user);
+                login$.unsubscribe();
                 this.router.navigateByUrl('/index');
               } else {
                 this.msg = '用户名密码错误';
+                this.alert = AlertEnum.DANGER;
                 this.isDisabled = true;
-
+                login$.unsubscribe();
               }
             },
             error => {
               console.error(error);
-              this.msg = error;
+              login$.unsubscribe();
+              this.msg = '服务器开小差啦';
+              this.alert = AlertEnum.DANGER;
               this.isDisabled = true;
             }
           );

@@ -92,6 +92,9 @@ export class RoleManageComponent implements OnInit {
         if (data.meta.code === 6666) {
           this.roles = data.data.data.list;
           this.roleTotalItems = data.data.data.total;
+        } else if (data.meta.code === 1008) {
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
           this.msg = '查询失败';
         }
@@ -153,7 +156,12 @@ export class RoleManageComponent implements OnInit {
             this.msg = '删除成功';
             deleteRole$.unsubscribe();
             this.ngOnInit();
+          } else if (data.meta.code === 1008) {
+            deleteRole$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
+            deleteRole$.unsubscribe();
             this.msg = '删除失败';
           }
         }
@@ -174,6 +182,10 @@ export class RoleManageComponent implements OnInit {
             this.msg = '添加成功';
             addRole$.unsubscribe();
             this.ngOnInit();
+          } else if (data.meta.code === 1008) {
+            addRole$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
             this.msg = '添加失败';
             addRole$.unsubscribe();
@@ -190,6 +202,10 @@ export class RoleManageComponent implements OnInit {
             this.msg = '修改成功';
             updateRole$.unsubscribe();
             this.ngOnInit();
+          } else if (data.meta.code === 1008) {
+            updateRole$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
             this.msg = '修改失败';
             updateRole$.unsubscribe();
@@ -226,6 +242,10 @@ export class RoleManageComponent implements OnInit {
           this.apis = data.data.data.list;
           this.apiTotalItems = data.data.data.total;
           roleApi$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          roleApi$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
           this.msg = '获取失败';
           roleApi$.unsubscribe();
@@ -241,6 +261,10 @@ export class RoleManageComponent implements OnInit {
           this.modalApis = data.data.data.list;
           this.modalTotalItems = data.data.data.total;
           roleApi$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          roleApi$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
           this.msg = '获取失败';
           roleApi$.unsubscribe();
@@ -278,6 +302,10 @@ export class RoleManageComponent implements OnInit {
             this.msg = '删除成功';
             deleteApi$.unsubscribe();
             this.getRoleApis(this.selectedRole.id, this.apiCurrentPage, this.apiPageSize);
+          } else if (data.meta.code === 1008) {
+            deleteApi$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
             this.msg = '删除失败';
           }
@@ -300,6 +328,10 @@ export class RoleManageComponent implements OnInit {
           this.menus = data.data.data.list;
           this.menuTotalItems = data.data.data.total;
           roleMenu$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          roleMenu$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
           this.msg = '获取失败';
           roleMenu$.unsubscribe();
@@ -315,6 +347,10 @@ export class RoleManageComponent implements OnInit {
           this.modalMenus = data.data.data.list;
           this.modalTotalItems = data.data.data.total;
           roleMenu$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          roleMenu$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
           this.msg = '获取失败';
           roleMenu$.unsubscribe();
@@ -354,7 +390,12 @@ export class RoleManageComponent implements OnInit {
             this.msg = '删除成功';
             deleteMenu$.unsubscribe();
             this.getRoleMenus(this.selectedRole.id, this.menuCurrentPage, this.menuPageSize);
+          } else if (data.meta.code === 1008) {
+            deleteMenu$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
+            deleteMenu$.unsubscribe();
             this.msg = '删除失败';
           }
         }
@@ -375,6 +416,10 @@ export class RoleManageComponent implements OnInit {
           this.users = data.data.data.list;
           this.userTotalItems = data.data.data.total;
           roleUser$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          roleUser$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
           this.msg = '获取失败';
           roleUser$.unsubscribe();
@@ -390,6 +435,10 @@ export class RoleManageComponent implements OnInit {
           this.modalUsers = data.data.data.list;
           this.modalTotalItems = data.data.data.total;
           roleUser$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          roleUser$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
           this.msg = '获取失败';
           roleUser$.unsubscribe();
@@ -429,8 +478,13 @@ export class RoleManageComponent implements OnInit {
             this.msg = '删除成功';
             deleteUser$.unsubscribe();
             this.getRoleUsers(this.selectedRole.id, this.userCurrentPage, this.userPageSize);
+          } else if (data.meta.code === 1008) {
+            deleteUser$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
             this.msg = '删除失败';
+            deleteUser$.unsubscribe();
           }
         }
       );
@@ -458,6 +512,10 @@ export class RoleManageComponent implements OnInit {
             this.msg = '授权添加成功';
             this.getRoleApis(this.selectedRole.id, this.apiCurrentPage, this.apiPageSize);
             addApi$.unsubscribe();
+          } else if (data.meta.code === 1008) {
+            addApi$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
             this.msg = '授权添加失败';
             addApi$.unsubscribe();
@@ -478,6 +536,10 @@ export class RoleManageComponent implements OnInit {
             this.msg = '授权添加成功';
             this.getRoleMenus(this.selectedRole.id, this.menuCurrentPage, this.menuPageSize);
             addMenu$.unsubscribe();
+          } else if (data.meta.code === 1008) {
+            addMenu$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
             this.msg = '授权添加失败';
             addMenu$.unsubscribe();
@@ -498,6 +560,10 @@ export class RoleManageComponent implements OnInit {
             this.msg = '授权添加成功';
             this.getRoleUsers(this.selectedRole.id, this.userCurrentPage, this.userPageSize);
             addUser$.unsubscribe();
+          } else if (data.meta.code === 1008) {
+            addUser$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
           } else {
             this.msg = '授权添加失败';
             addUser$.unsubscribe();

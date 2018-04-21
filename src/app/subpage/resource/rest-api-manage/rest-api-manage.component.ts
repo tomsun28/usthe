@@ -1,7 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {MenuTreeNode} from '../../../pojo/MenuTreeNode';
 import {AlertEnum} from '../../../common/alert-enum.enum';
-import {ResponseVO} from '../../../pojo/ResponseVO';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {ResourceService} from '../../../service/resource.service';
 
@@ -12,7 +11,6 @@ import {ResourceService} from '../../../service/resource.service';
 })
 export class RestApiManageComponent implements OnInit {
 
-  private responseVO: ResponseVO;
 
   // modal-template info
   api: MenuTreeNode = new MenuTreeNode();
@@ -48,12 +46,17 @@ export class RestApiManageComponent implements OnInit {
     // -1表示获取API分类信息(初始化时用)
     const resourceTeam$  = this.resourceService.getRestApiList(-1, this.currentPage, this.pageSize).subscribe(
       data => {
-        this.responseVO = data;
-        if (this.responseVO.meta.code === 6666) {
-          this.apiTeam = this.responseVO.data.data;
+
+        if (data.meta.code === 6666) {
+          this.apiTeam = data.data.data;
           resourceTeam$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          resourceTeam$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
-          this.msg = '查询失败';
+          this.msg = '获取api分类失败';
+          resourceTeam$.unsubscribe();
         }
       }
     );
@@ -63,13 +66,21 @@ export class RestApiManageComponent implements OnInit {
   getApiList(id: number) {
     const resource$ = this.resourceService.getRestApiList(id, this.currentPage, this.pageSize).subscribe(
       data => {
-        this.responseVO = data;
-        if (this.responseVO.meta.code === 6666) {
-          this.apis = this.responseVO.data.data.list;
-          this.totalItems = this.responseVO.data.data.total;
+        if (data.meta.code === 6666) {
+          this.apis = data.data.data.list;
+          this.totalItems = data.data.data.total;
           resource$.unsubscribe();
+        } else if (data.meta.code === 1008) {
+          resource$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
+        } else if (data.meta.code === 1008) {
+          resource$.unsubscribe();
+          this.alert = AlertEnum.DANGER;
+          this.msg = '您无此api权限';
         } else {
-          this.msg = '查询失败';
+          this.msg = '获取失败';
+          resource$.unsubscribe();
         }
       }
     );
@@ -120,13 +131,19 @@ export class RestApiManageComponent implements OnInit {
       if (confirm('确认删除' + this.selectedApi.name)) {
         const deleteMenu$ = this.resourceService.deleteRestApi(this.selectedApi.id).subscribe(
           data => {
-            this.responseVO = data;
-            if (this.responseVO.meta.code === 6666) {
+            if (data.meta.code === 6666) {
               // delete success
               this.alert = AlertEnum.SUCCESS;
               this.msg = '删除成功';
               deleteMenu$.unsubscribe();
               this.ngOnInit();
+            } else if (data.meta.code === 1008) {
+              deleteMenu$.unsubscribe();
+              this.alert = AlertEnum.DANGER;
+              this.msg = '您无此api权限';
+            } else {
+              deleteMenu$.unsubscribe();
+              this.msg = '删除失败';
             }
           }
         );
@@ -177,13 +194,19 @@ export class RestApiManageComponent implements OnInit {
     if (this.modalFlag === 1) {
       const addMenu$ = this.resourceService.addRestApi(this.api).subscribe(
         data => {
-          this.responseVO = data;
-          if (this.responseVO.meta.code === 6666) {
+          if (data.meta.code === 6666) {
             // add success
             this.alert = AlertEnum.SUCCESS;
             this.msg = '添加成功';
             addMenu$.unsubscribe();
             this.ngOnInit();
+          } else if (data.meta.code === 1008) {
+            addMenu$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
+          } else {
+            this.msg = '增加失败';
+            addMenu$.unsubscribe();
           }
         }
       );
@@ -192,13 +215,19 @@ export class RestApiManageComponent implements OnInit {
     if (this.modalFlag === 2) {
       const modifyMenu$ = this.resourceService.updateRestApi(this.api).subscribe(
         data => {
-          this.responseVO = data;
-          if (this.responseVO.meta.code === 6666) {
+          if (data.meta.code === 6666) {
             // modify success
             this.alert = AlertEnum.SUCCESS;
             this.msg = '修改成功';
             modifyMenu$.unsubscribe();
             this.ngOnInit();
+          } else if (data.meta.code === 1008) {
+            modifyMenu$.unsubscribe();
+            this.alert = AlertEnum.DANGER;
+            this.msg = '您无此api权限';
+          } else {
+            this.msg = '修改失败';
+            modifyMenu$.unsubscribe();
           }
         }
       );
