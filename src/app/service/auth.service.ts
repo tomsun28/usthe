@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {UserVO} from '../pojo/UserVO';
 import {Router} from '@angular/router';
 
 @Injectable()
@@ -16,7 +15,7 @@ export class AuthService {
       || uid == null
       || jwt == null
       || userId !== uid) {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/login');
     }
 
   }
@@ -25,7 +24,7 @@ export class AuthService {
     localStorage.clear();
     // 之后实现通知服务器用户下线
 
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/login');
   }
 
 
