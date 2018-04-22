@@ -74,11 +74,7 @@ export class RestApiManageComponent implements OnInit {
           resource$.unsubscribe();
           this.alert = AlertEnum.DANGER;
           this.msg = '您无此api权限';
-        } else if (data.meta.code === 1008) {
-          resource$.unsubscribe();
-          this.alert = AlertEnum.DANGER;
-          this.msg = '您无此api权限';
-        } else {
+        }  else {
           this.msg = '获取失败';
           resource$.unsubscribe();
         }

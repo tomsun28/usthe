@@ -3,7 +3,6 @@ import {AlertEnum} from '../../../common/alert-enum.enum';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {AppConfig} from '../../../util/app-config';
 import {ResourceService} from '../../../service/resource.service';
-import {ResponseVO} from '../../../pojo/ResponseVO';
 import {MenuTreeNode} from '../../../pojo/MenuTreeNode';
 
 @Component({

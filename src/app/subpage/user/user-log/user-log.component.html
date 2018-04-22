@@ -1,3 +1,133 @@
-<p>
-  user-log works!
-</p>
+<app-alert [alert]="alert" [timeout]="3000" [msg]="msg" (msg_)="reloadAlertMsg($event)" ></app-alert>
+<!--<my-content-header [firstName]="firstName" [secondName]="secondName"></my-content-header>-->
+
+<app-content-header [firstName]="firstName" [secondName]="secondName" [detail]="detail"></app-content-header>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">账户操作日志</h3>
+          <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="box-body table-responsive">
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th style="width: 8px;"></th>
+              <th>ID</th>
+              <th>日志类型</th>
+              <th>用户标识</th>
+              <th>用户终端IP</th>
+              <th>操作时间</th>
+              <th>其他信息</th>
+              <th>状态</th>
+            </tr>
+            <tr *ngFor="let item of accountLog">
+              <td style="width: 8px;"></td>
+              <td>{{item.id}}</td>
+              <td>{{item.userId}}</td>
+              <td>{{item.logName}}</td>
+              <td>{{item.ip}}</td>
+              <td>{{item.createTime}}</td>
+              <td>{{item.message}}</td>
+              <td>{{item.status===1 ? '正常' : '失败'}}</td>
+            <tr>
+              <td colspan="9">
+                <form class="form-inline" style="float:right;">
+                  <div class="form-group">
+                    <pagination [disabled]="disabled" [totalItems]="totalItems1"
+                                [itemsPerPage]="pageSize1"
+                                (pageChanged)="pageChanged1($event)"
+                                [maxSize]="6" [boundaryLinks]="true" class="pagination-sm"
+                                previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                    </pagination>
+                  </div>
+                </form>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">业务调用api操作日志</h3>
+          <div class="box-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="box-body table-responsive">
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th style="width: 8px;"></th>
+              <th>ID</th>
+              <th>日志类型</th>
+              <th>用户标识</th>
+              <th>调用API</th>
+              <th>调用方式</th>
+              <th>调用时间</th>
+              <th>其他信息</th>
+              <th>状态</th>
+            </tr>
+            <tr *ngFor="let item of operateLog">
+              <td style="width: 8px;"></td>
+              <td>{{item.id}}</td>
+              <td>{{item.userId}}</td>
+              <td>{{item.logName}}</td>
+              <td>{{item.api}}</td>
+              <td>{{item.method}}</td>
+              <td>{{item.createTime}}</td>
+              <td>{{item.message}}</td>
+              <td>{{item.status===1 ? '正常' : '失败'}}</td>
+            </tr>
+            <tr>
+              <td colspan="9">
+                <form class="form-inline" style="float:right;">
+                  <div class="form-group">
+                    <pagination [disabled]="disabled" [totalItems]="totalItems2"
+                                [itemsPerPage]="pageSize2"
+                                (pageChanged)="pageChanged2($event)"
+                                [maxSize]="6" [boundaryLinks]="true" class="pagination-sm"
+                                previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                    </pagination>
+                  </div>
+                </form>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+  </div>
+</section>
+
+
