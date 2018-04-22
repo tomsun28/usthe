@@ -33,7 +33,8 @@ export class UserLogComponent implements OnInit {
   constructor(private logService: LogService) { }
 
   ngOnInit() {
-
+    this.getAccountLogList();
+    this.getOperateLogList();
   }
 
   getAccountLogList() {
@@ -60,7 +61,7 @@ export class UserLogComponent implements OnInit {
       data => {
         if (data.meta.code === 6666) {
           this.operateLog = data.data.data.list;
-          this.totalItems1 = data.data.data.total;
+          this.totalItems2 = data.data.data.total;
           operateLog$.unsubscribe();
         } else if (data.meta.code === 1008) {
           operateLog$.unsubscribe();

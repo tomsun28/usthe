@@ -11,7 +11,7 @@ export class LogService {
     return this.httpUtil.get(url);
   }
   getOperateLogList(currentPage: number, pageSize: number) {
-    const url = 'log/operateLog/' + currentPage + '/' + pageSize;
+    const url = 'log/operationLog/' + currentPage + '/' + pageSize;
     return this.httpUtil.get(url);
   }
 }

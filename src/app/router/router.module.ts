@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'index', component: IndexComponent, children: [
-      { path: '', component: MenuManageComponent },
+      { path: '', component: UserLogComponent },
       { path: 'menu', component: MenuManageComponent },
       { path: 'api', component: RestApiManageComponent },
       { path: 'role', component: RoleManageComponent },

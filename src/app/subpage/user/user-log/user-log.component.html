@@ -37,12 +37,12 @@
             <tr *ngFor="let item of accountLog">
               <td style="width: 8px;"></td>
               <td>{{item.id}}</td>
-              <td>{{item.userId}}</td>
               <td>{{item.logName}}</td>
+              <td>{{item.userId}}</td>
               <td>{{item.ip}}</td>
-              <td>{{item.createTime}}</td>
+              <td>{{item.createTime | date:'yy-MM-dd HH:mm'}}</td>
               <td>{{item.message}}</td>
-              <td>{{item.status===1 ? '正常' : '失败'}}</td>
+              <td>{{item.succeed===1 ? '正常' : '失败'}}</td>
             <tr>
               <td colspan="9">
                 <form class="form-inline" style="float:right;">
@@ -97,13 +97,13 @@
             <tr *ngFor="let item of operateLog">
               <td style="width: 8px;"></td>
               <td>{{item.id}}</td>
-              <td>{{item.userId}}</td>
               <td>{{item.logName}}</td>
+              <td>{{item.userId}}</td>
               <td>{{item.api}}</td>
               <td>{{item.method}}</td>
-              <td>{{item.createTime}}</td>
+              <td>{{item.createTime | date:'yy-MM-dd HH:mm'}}</td>
               <td>{{item.message}}</td>
-              <td>{{item.status===1 ? '正常' : '失败'}}</td>
+              <td>{{item.succeed===1 ? '正常' : '失败'}}</td>
             </tr>
             <tr>
               <td colspan="9">
