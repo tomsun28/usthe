@@ -10,7 +10,7 @@ import {UserLogComponent} from '../subpage/user/user-log/user-log.component';
 
 const routes: Routes = [
   // 应用的默认路径,当URL为空时访问,作为应用的起点
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'index', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'index', component: IndexComponent, children: [
