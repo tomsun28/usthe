@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../service/auth.service';
-import {catchError, map, mergeMap, repeat, repeatWhen, retry, retryWhen, take} from 'rxjs/operators';
+import {catchError, mergeMap, repeat} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 
@@ -52,6 +52,10 @@ export class AuthInterceptor implements HttpInterceptor {
             }
             // jwt过期  清空本地信息跳转登录界面
             if (event.body.meta.code === 1006) {
+              this.authService.logout();
+            }
+            // err jwt 情况本地信息跳转登录界面
+            if (event.body.meta.code === 1007) {
               this.authService.logout();
             }
           }
