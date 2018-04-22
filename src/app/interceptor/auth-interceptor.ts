@@ -50,6 +50,10 @@ export class AuthInterceptor implements HttpInterceptor {
               return next.handle(authReq);
 
             }
+            // jwt过期  清空本地信息跳转登录界面
+            if (event.body.meta.code === 1006) {
+              this.authService.logout();
+            }
           }
           if (event.status === 404) {
             // go to 404 html
