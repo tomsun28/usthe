@@ -7,6 +7,7 @@ import { MenuTreeItemComponent } from './resource/menu-manage/menu-tree-item/men
 import {BsDropdownModule, ModalModule, PaginationModule} from 'ngx-bootstrap';
 import { RoleManageComponent } from './resource/role-manage/role-manage.component';
 import {FormatUserStatusPipe} from '../util/format-user-status.pipe';
+import { UserLogComponent } from './user/user-log/user-log.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import {FormatUserStatusPipe} from '../util/format-user-status.pipe';
     PaginationModule.forRoot(),
 
   ],
-  declarations: [MenuManageComponent, RestApiManageComponent, MenuTreeItemComponent, RoleManageComponent ],
+  declarations: [MenuManageComponent, RestApiManageComponent, MenuTreeItemComponent, RoleManageComponent, UserLogComponent ],
   exports: []
 
 })
