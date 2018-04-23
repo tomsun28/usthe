@@ -23,10 +23,10 @@ export class HeaderComponent implements OnInit {
   dropDownLeftToggle() {
     this.leftSideBar = !this.leftSideBar;
     if (this.leftSideBar) {
-      document.getElementsByTagName('body').item(0).classList.remove('sidebar-open', 'sidebar-collapse');
+      document.getElementsByTagName('body').item(0).classList.remove('sidebar-collapse');  // 'sidebar-collapse'
     } else {
 
-      document.getElementsByTagName('body').item(0).classList.add('sidebar-open', 'sidebar-collapse');
+      document.getElementsByTagName('body').item(0).classList.add('sidebar-collapse');   // 'sidebar-open' 'sidebar-collapse'
     }
 
   }

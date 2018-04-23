@@ -54,12 +54,16 @@ export class RegisterComponent implements OnInit {
               // 注册成功返回
               if (data2.meta.code === 2002) {
                 this.authService.updateUid(this.uid);
-                this.msg = '用户注册成功';
+                this.msg = '用户注册成功跳转到登录界面';
                 this.alert = AlertEnum.SUCCESS;
-                this.router.navigateByUrl('/login');
+                setTimeout( () => {
+                  this.router.navigateByUrl('/login');
+                }, 3000 );
+                register$.unsubscribe();
               } else {
-                this.msg = '用户名密码错误';
+                this.msg = '用户账户已存在';
                 this.alert = AlertEnum.WARNING;
+                register$.unsubscribe();
               }
               register$.unsubscribe();
             },
