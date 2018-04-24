@@ -1,19 +1,18 @@
 import {Injectable} from '@angular/core';
-import {AppConfig} from './app-config';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
-import {ErrorObserver} from 'rxjs/Observer';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {ResponseVO} from '../pojo/ResponseVO';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class HttpUtil {
 
   private baseUrl: string;
 
-  constructor(private config: AppConfig, private http: HttpClient) {
-    this.baseUrl = config.appConfig.baseUrl;
+  constructor( private http: HttpClient) {
+    this.baseUrl = environment.apiBaseUrl;
   }
 
   public post(url: string, param?: any): Observable<ResponseVO> {

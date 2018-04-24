@@ -19,9 +19,21 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/ionicons/dist/css/ionicons.css",
+        "_variables.less"
+
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/jqueryui/jquery-ui.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/admin-lte/dist/js/app.js",
+        "assets/js/adminLTEOptions.js",
+        "assets/js/scripts.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

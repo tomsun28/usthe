@@ -2,12 +2,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AppConfig {
-  public appConfig: any = {
-    // baseUrl: 'http://localhost:80/api/',
-    baseUrl: 'http://116.196.81.106/api/',
-    appName: 'usthe',
-    version: '1.0.0',
-  };
+
   public appMenuIcon: any[] = [
     'fa fa-share',
     'fa fa-pie-chart',
