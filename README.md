@@ -27,7 +27,7 @@
 - 前提启动了后端[bootshiro](https://github.com/tomsun28/bootshiro)
 - 访问浏览器ok http://localhost
 
-##这个开发环境部署确实有点繁琐需要一定基础,之后有时间简化去掉nginx,但生产环境最好还是要有的##
+**这个开发环境部署确实有点繁琐需要一定基础,之后有时间简化去掉nginx,但生产环境最好还是要有的**
 
 2.docker本地部署  
 
