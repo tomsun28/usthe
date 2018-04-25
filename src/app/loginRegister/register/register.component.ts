@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AlertEnum} from '../../common/alert-enum.enum';
 import {RegisterService} from '../../service/register.service';
 import {AuthService} from '../../service/auth.service';
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   msg: string = '默认提示信息';
   alert: AlertEnum = AlertEnum.DANGER;
@@ -21,6 +21,11 @@ export class RegisterComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    document.getElementsByTagName('body')[0].classList.add('register-page');
+  }
+
+  ngOnDestroy(): void {
+    document.getElementsByTagName('body')[0].classList.remove('register-page');
   }
 
   check() {

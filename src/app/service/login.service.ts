@@ -33,4 +33,9 @@ export class LoginService {
 
     return this.httpUtil.post(url, param);
   }
+
+  logout() {
+    const url = 'user/exit';
+    return this.httpUtil.post(url);
+  }
 }

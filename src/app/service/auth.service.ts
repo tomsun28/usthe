@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
+import {LoginService} from './login.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   public checkLogin(): void {
     const user = this.getUser();
@@ -21,10 +22,17 @@ export class AuthService {
   }
 
   public logout(): void {
+    // 本地消除存储用户信息
     localStorage.clear();
-    // 之后实现通知服务器用户下线
-
-    this.router.navigateByUrl('/login');
+    // 通知服务器用户下线
+    this.loginService.logout().subscribe(
+      () => {
+        this.router.navigateByUrl('/login');
+    },
+      error2 => {
+        this.router.navigateByUrl('/login');
+      }
+    );
   }
 
 

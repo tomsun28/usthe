@@ -20,24 +20,9 @@ export class HeaderComponent implements OnInit {
     this.user = this.authService.getUser();
   }
 
-  dropDownLeftToggle() {
-    this.leftSideBar = !this.leftSideBar;
-    if (this.leftSideBar) {
-      document.getElementsByTagName('body').item(0).classList.remove('sidebar-collapse');  // 'sidebar-collapse'
-    } else {
-
-      document.getElementsByTagName('body').item(0).classList.add('sidebar-collapse');   // 'sidebar-open' 'sidebar-collapse'
-    }
-
+  logout() {
+    this.authService.logout();
   }
 
-  dropDownRightToggle() {
-    this.rightSideBar = !this.rightSideBar;
-    if (this.rightSideBar) {
-      document.getElementsByClassName('control-sidebar').item(0).classList.remove('control-sidebar-open');
-    } else {
-      document.getElementsByClassName('control-sidebar').item(0).classList.add('control-sidebar-open');
-    }
-  }
 
 }

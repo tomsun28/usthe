@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AlertEnum} from '../../common/alert-enum.enum';
 import {LoginService} from '../../service/login.service';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
-import {ResponseVO} from '../../pojo/ResponseVO';
 
 
 @Component({
@@ -11,7 +10,7 @@ import {ResponseVO} from '../../pojo/ResponseVO';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
 
   msg: string = '默认提示信息';
@@ -28,6 +27,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.getElementsByTagName('body')[0].classList.add('login-page');
+  }
+
+  ngOnDestroy(): void {
+    document.getElementsByTagName('body')[0].classList.remove('login-page');
   }
 
   check() {
