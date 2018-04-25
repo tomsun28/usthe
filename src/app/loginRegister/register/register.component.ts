@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   uid: string;
   username: string;
   password: string;
+  isDisabled: boolean = false;
 
   constructor(private registerService: RegisterService, private authService: AuthService,
               private router: Router) { }
@@ -47,6 +48,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (!this.check()) {
       return;
     }
+    this.isDisabled = true;
     // 获取tokenKey秘钥
     const getToken$ = this.registerService.getTokenKey().subscribe(
       data => {
@@ -65,17 +67,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
                   this.router.navigateByUrl('/login');
                 }, 3000 );
                 register$.unsubscribe();
+                this.isDisabled = false;
               } else {
                 this.msg = '用户账户已存在';
                 this.alert = AlertEnum.WARNING;
                 register$.unsubscribe();
+                this.isDisabled = false;
               }
-              register$.unsubscribe();
             },
             error => {
               this.alert = AlertEnum.DANGER;
               this.msg = '服务器开小差啦';
               register$.unsubscribe();
+              this.isDisabled = false;
             }
           );
         }

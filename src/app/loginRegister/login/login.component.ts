@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               } else {
                 this.msg = '用户名密码错误';
                 this.alert = AlertEnum.DANGER;
-                this.isDisabled = true;
+                this.isDisabled = false;
                 login$.unsubscribe();
               }
             },
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               login$.unsubscribe();
               this.msg = '服务器开小差啦';
               this.alert = AlertEnum.DANGER;
-              this.isDisabled = true;
+              this.isDisabled = false;
             }
           );
         }

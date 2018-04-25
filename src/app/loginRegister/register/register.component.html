@@ -38,11 +38,11 @@
             <!--<input type="checkbox">记住我-->
             <!--</label>-->
             <!--</div>-->
-            <button (click)="register()" type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+            <button [disabled]="isDisabled" (click)="register()" type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
           </div>
           <!-- login-submit -->
           <div class="col-xs-4">
-            <button routerLink="/login" routerLinkActive="active" type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+            <button [disabled]="isDisabled" routerLink="/login" routerLinkActive="active" type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
           </div>
         </div>
       </form>
