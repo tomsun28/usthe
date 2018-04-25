@@ -1,5 +1,109 @@
 # usthe
 
+
+## 部署  
+--------
+0.安装nginx反向代理  
+
+- 这里使用docker安装[nginx-docker](https://github.com/tomsun28/DockerFile/tree/master/nginx)
+- clone 上面的nginx-docker仓库到本地: git clone https://github.com/tomsun28/DockerFile.git
+- 进入nginx目录修改nginx.conf对应参数: 要代理的后端bootshiro服务IP,要代理的前端usthe地址IP
+- 进入nginx目录下,生成nginx镜像：docker build -t nginx:1.0 .
+- 启动nginx: docker run -d -p 80:80 --name nginx nginx:1.0
+
+
+1.IDE启动调试  
+
+- fork 项目到自己的仓库(欢迎star^.^)  
+- clone 项目到本地 git clone https://github.com/yourName/usthe.git
+- 用WebStorm导入
+- 需要node环境
+- 安装angular cli工具 npm install -g @angular/cli@latest
+- 进入项目目录 npm install
+- 修改/src/environments/environments.ts开发环境的apiBaseUrl
+- 前提您已经安装部署了nginx并配置相关代理url
+- apiBaseUrl为nginx地址,约定nginx-url+'/api/'为提供api的后端项目根url,具体可在nginx.conf里修改
+- ng serve 启动 
+- 前提启动了后端[bootshiro](https://github.com/tomsun28/bootshiro)
+- 访问浏览器ok http://localhost
+
+##这个开发环境部署确实有点繁琐需要一定基础,之后有时间简化去掉nginx,但生产环境最好还是要有的##
+
+2.docker本地部署  
+
+- fork 项目到自己的仓库(欢迎star^.^)  
+- clone 项目到本地 git clone https://github.com/yourName/usthe.git
+- 修改/src/environments/environments.prod.ts生产环境的apiBaseUrl
+- 前提您已经安装部署了nginx并配置了相关代理url,也存在docker环境([docker常用看这里](http://usthe.com/2017/12/docker_learn/))
+- 在项目目录下 docker build -t usthe:1.0 . 
+- docker images看是否生成镜像成功
+- 运行 docker run -d -p 4300:4200 --name haiLady usthe:1.0
+- docker ps 就可以看见您的haiLady了
+- 前提部署了后端[bootshiro](https://github.com/tomsun28/bootshiro)
+- 访问浏览器 http://localhost
+
+3.jenkins+docker持续集成持续部署CICD  
+
+- fork 项目到自己的仓库(欢迎star^.^)  
+- clone 项目到本地 git clone https://github.com/yourName/usthe.git
+- 更改生产和开发环境对应的/src/environments/environments  apiBaseUrl
+- 搭建CICD环境有点繁琐，[看这篇最下面](http://usthe.com/2017/12/docker_learn/)
+- 参照搭建完成后,usthe对应的jenkins下运行shell:
+````
+#!/bin/bash
+
+#build in jenkins sh
+
+#docker docker hub仓库地址,之后把生成的镜像上传到  registry or docker hub
+REGISTRY_URL=127.0.0.1:5000
+#docker login --username tomsun28 --password xxxx
+
+#根据时间生成版本号
+TAG=$REGISTRY_URL/$JOB_NAME:`date +%y%m%d-%H-%M`
+
+#使用放在项目下面的Dockerfile打包生成镜像
+docker build -t $TAG $WORKSPACE/.
+
+docker push $TAG
+docker rmi $TAG
+
+#判断之前运行的容器是否还在，在就删除
+if docker ps -a | grep -i $JOB_NAME;then
+docker rm -f $JOB_NAME
+fi
+
+#用最新版本的镜像运行容器
+
+docker run -d -p 4200:80 --name $JOB_NAME $TAG
+
+````
+
+4.nginx反向代理替换  
+
+由于这个跨域是在nginx上解决的,要使前端真正能访问api需要nginx反向代理bootshiro后端  
+但是如果您不想这样,可以在bootshiro添加拦截器拦截response 给它的header添加点跨域支持:
+````
+response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+response.setHeader("Access-Control-Allow-Credentials", "true");
+response.setHeader("P3P", "CP=CAO PSA OUR");
+response.addHeader("Access-Control-Allow-Methods", "POST,GET,TRACE,OPTIONS");
+response.addHeader("Access-Control-Allow-Headers", "Content-Type,Origin,Accept");
+response.addHeader("Access-Control-Max-Age", "120");
+
+````
+
+
+欢迎一起完善哦^^  
+
+
+[相关文章](https://segmentfault.com/blog/tomsun28)
+
+======================================
+
+
+
+
+
 ## 自己在前后端分离上的实践    
 
 要想实现完整的前后端分离，安全这块是绕不开的，这个系统主要功能就是动态restful api管理，这次实践包含两个模块,基于```springBoot + shiro```搭建的权限管理系统后台**bootshiro**, ```angular5 + typeScript```编写的前端管理**usthe**。(ps:考虑到我幼小的心灵和水平,大神误喷啊^_^~)  
