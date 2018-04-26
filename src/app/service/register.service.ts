@@ -20,7 +20,8 @@ export class RegisterService {
     const url = 'account/register';
     tokenKey = CryptoJS.enc.Utf8.parse(tokenKey);
     password = CryptoJS.enc.Utf8.parse(password);
-    password = CryptoJS.AES.encrypt(password, tokenKey, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7}).toString();
+    // AES CBC加密模式
+    password = CryptoJS.AES.encrypt(password, tokenKey, {iv: tokenKey, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
     console.log(password);
     const param = new HttpParams().append('uid', uid)
       .append('username', username)
