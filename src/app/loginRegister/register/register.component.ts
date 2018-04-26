@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 this.alert = AlertEnum.SUCCESS;
                 setTimeout( () => {
                   this.router.navigateByUrl('/login');
-                }, 3000 );
+                }, 1800 );
                 register$.unsubscribe();
                 this.isDisabled = false;
               } else {
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 this.isDisabled = false;
               }
             },
-            error => {
+            () => {
               this.alert = AlertEnum.DANGER;
               this.msg = '服务器开小差啦';
               register$.unsubscribe();
