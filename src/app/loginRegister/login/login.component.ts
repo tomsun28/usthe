@@ -56,8 +56,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       data => {
         if (data.data.tokenKey !== undefined) {
           const tokenKey = data.data.tokenKey;
+          const userKey = data.data.userKey;
           getToken$.unsubscribe();
-          const login$ = this.loginService.login(this.appId, this.password, tokenKey).subscribe(
+          const login$ = this.loginService.login(this.appId, this.password, tokenKey, userKey).subscribe(
             data2 => {
               // 认证成功返回jwt
               if (data2.meta.code === 1003 && data2.data.jwt != null) {

@@ -55,8 +55,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
         if (data.data.tokenKey !== undefined) {
           const tokenKey = data.data.tokenKey;
+          const userKey = data.data.userKey;
           getToken$.unsubscribe();
-          const register$ = this.registerService.register(this.uid, this.username, this.password, tokenKey).subscribe(
+          const register$ = this.registerService.register(this.uid, this.username, this.password, tokenKey, userKey).subscribe(
             data2 => {
               // 注册成功返回
               if (data2.meta.code === 2002) {

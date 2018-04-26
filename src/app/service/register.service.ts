@@ -16,7 +16,7 @@ export class RegisterService {
     return this.httpUtil.get(url);
   }
 
-  register(uid: string, username: string, password: string, tokenKey: string) {
+  register(uid: string, username: string, password: string, tokenKey: string, userKey: string) {
     const url = 'account/register';
     tokenKey = CryptoJS.enc.Utf8.parse(tokenKey);
     password = CryptoJS.enc.Utf8.parse(password);
@@ -27,6 +27,7 @@ export class RegisterService {
       .append('username', username)
       .append('password', password)
       .append('methodName', 'register')
+      .append('userKey', userKey)
       .append('timestamp', new Date().toUTCString());
 
     return this.httpUtil.post(url, param);

@@ -20,7 +20,7 @@ export class LoginService {
     return this.httpUtil.get(url);
   }
 
-  login(appId: string, password: string, tokenKey: string) {
+  login(appId: string, password: string, tokenKey: string, userKey: string) {
     const url = 'account/login';
     tokenKey = CryptoJS.enc.Utf8.parse(tokenKey);
     password = CryptoJS.enc.Utf8.parse(password);
@@ -30,6 +30,7 @@ export class LoginService {
     const param = new HttpParams().append('appId', appId)
       .append('password', password)
       .append('methodName', 'login')
+      .append('userKey', userKey)
       .append('timestamp', new Date().toUTCString());
 
     return this.httpUtil.post(url, param);
