@@ -1,6 +1,6 @@
 # usthe
 
-- ```usthe```是```restful URL```资源无状态认证权限管理系统的前端,基于```angular+typeScript+adminLte```,后端[usthe](https://gitee.com/tomsun28/bootshiro)  
+- ```usthe```是```restful URL```资源无状态认证权限管理系统的前端,基于```angular+typeScript+adminLte```,后端[bootshiro](https://gitee.com/tomsun28/bootshiro)  
 - 提供页面可配置式的,动态的 ```restful api``` 安全管理  
 - 数据传输动态秘钥加密,```jwt```过期刷新,用户操作监控等 加固应用安全  
 
