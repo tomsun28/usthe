@@ -1,7 +1,6 @@
-import {Component, OnInit, Pipe} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertEnum} from '../../../common/alert-enum.enum';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {MenuTreeNode} from '../../../pojo/MenuTreeNode';
 import {RoleVO} from '../../../pojo/RoleVO';
 import {RoleService} from '../../../service/role.service';
 
