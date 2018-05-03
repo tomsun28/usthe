@@ -49,9 +49,6 @@ export class RoleManageComponent implements OnInit {
   menuTotalItems: number;
   menuCurrentPage: number = 1;
   // menu-modal info
-  menuModalPageSize: number = 10;
-  menuModalTotalItems: number;
-  menuModalCurrentPage: number = 1;
   modalMenus: any[];
   modalSelectedMenu: any;
 
@@ -63,9 +60,6 @@ export class RoleManageComponent implements OnInit {
   userTotalItems: number;
   userCurrentPage: number = 1;
   // user-modal info
-  userModalPageSize: number = 10;
-  userModalTotalItems: number;
-  userModalCurrentPage: number = 1;
   modalUsers: any[];
   modalSelectedUser: any;
 
@@ -579,9 +573,9 @@ export class RoleManageComponent implements OnInit {
     switch (this.modalSelected) {
       case 1 : this.getRoleExtendApis(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
       break;
-      case 2 : this.getRoleExtendApis(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+      case 2 : this.getRoleExtendMenus(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
       break;
-      case 3 : this.getRoleExtendApis(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
+      case 3 : this.getRoleExtendUsers(this.selectedRole.id, this.modalCurrentPage, this.modalPageSize);
       break;
       default : break;
     }
