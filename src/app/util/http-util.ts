@@ -23,6 +23,13 @@ export class HttpUtil {
 
   }
 
+  public postJson(url: string, body: any | null): Observable<ResponseVO> {
+    const uri = this.baseUrl + url;
+    return this.http.post<ResponseVO>(uri, body).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   public get(url: string): Observable<ResponseVO> {
     const uri = this.baseUrl + url;
     return this.http.get<ResponseVO>(uri).pipe(

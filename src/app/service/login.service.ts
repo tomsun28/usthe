@@ -33,7 +33,15 @@ export class LoginService {
       .append('userKey', userKey)
       .append('timestamp', new Date().toUTCString());
 
-    return this.httpUtil.post(url, param);
+    const body = {
+      'appId': appId,
+      'password': password,
+      'methodName': 'login',
+      'userKey': userKey,
+      'timestamp': new Date().toUTCString()
+    };
+
+    return this.httpUtil.postJson(url, body);
   }
 
   logout() {
