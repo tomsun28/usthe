@@ -30,6 +30,15 @@ export class RegisterService {
       .append('userKey', userKey)
       .append('timestamp', new Date().toUTCString());
 
-    return this.httpUtil.post(url, param);
+    const body = {
+      'uid': uid,
+      'username': username,
+      'password': password,
+      'methodName': 'register',
+      'userKey': userKey,
+      'timestamp': new Date().toUTCString()
+    };
+
+    return this.httpUtil.postJson(url, body);
   }
 }
