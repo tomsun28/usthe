@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpUtil} from '../util/http-util';
-import {ParamMap, Params} from '@angular/router';
-import {HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class RoleService {
@@ -40,8 +38,11 @@ export class RoleService {
 
   public roleAuthorityApi(roleId: number, apiId: number) {
     const url = 'role/authority/resource';
-    const map = new HttpParams().append('roleId', roleId + '').append('resourceId', apiId + '');
-    return this.httpUtil.post(url, map);
+    const body = {
+      'roleId': roleId,
+      'resourceId': apiId
+    };
+    return this.httpUtil.post(url, body);
   }
 
   public deleteRoleAuthorityApi(roleId: number, apiId: number) {
@@ -61,8 +62,11 @@ export class RoleService {
 
   public roleAuthorityMenu(roleId: number, menuId: number) {
     const url = 'role/authority/resource';
-    const map = new HttpParams().append('roleId', roleId + '').append('resourceId', menuId + '');
-    return this.httpUtil.post(url, map);
+    const body = {
+      'roleId': roleId,
+      'resourceId': menuId
+    };
+    return this.httpUtil.post(url, body);
   }
 
   public deleteRoleAuthorityMenu(roleId: number, menuId: number) {
@@ -82,8 +86,11 @@ export class RoleService {
 
   public userAuthorityRole(uid: string, roleId: number) {
     const url = 'user/authority/role';
-    const map = new HttpParams().append('uid', uid).append('roleId', roleId + '');
-    return this.httpUtil.post(url, map);
+    const body = {
+      'uid': uid,
+      'roleId': roleId
+    };
+    return this.httpUtil.post(url, body);
   }
 
   public deleteUserAuthorityRole(uid: string, roleId: number) {

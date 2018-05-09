@@ -15,19 +15,12 @@ export class HttpUtil {
     this.baseUrl = environment.apiBaseUrl;
   }
 
-  public post(url: string, param?: any): Observable<ResponseVO> {
-    const uri = this.baseUrl + url;
-    return this.http.post<ResponseVO>(uri, param).pipe(
-      catchError(this.handleError)
-    );
-
-  }
-
-  public postJson(url: string, body: any | null): Observable<ResponseVO> {
+  public post(url: string, body?: any | null): Observable<ResponseVO> {
     const uri = this.baseUrl + url;
     return this.http.post<ResponseVO>(uri, body).pipe(
       catchError(this.handleError)
     );
+
   }
 
   public get(url: string): Observable<ResponseVO> {
@@ -37,23 +30,23 @@ export class HttpUtil {
     );
   }
 
-  public put(url: string, params?: any): Observable<ResponseVO> {
+  public put(url: string, body?: any | null): Observable<ResponseVO> {
     const uri = this.baseUrl + url;
-    return this.http.put<ResponseVO>(uri, params).pipe(
+    return this.http.put<ResponseVO>(uri, body).pipe(
       catchError(this.handleError)
     );
   }
 
-  public patch(url: string, params?: any): Observable<ResponseVO> {
+  public patch(url: string, body?: any | null): Observable<ResponseVO> {
     const uri = this.baseUrl + url;
-    return this.http.patch<ResponseVO>(uri, params).pipe(
+    return this.http.patch<ResponseVO>(uri, body).pipe(
       catchError(this.handleError)
     );
   }
 
-  public delete(url: string, params?: any): Observable <ResponseVO> {
+  public delete(url: string, body?: any | null): Observable <ResponseVO> {
     const uri = this.baseUrl + url;
-    return this.http.delete<ResponseVO>(uri, params).pipe(
+    return this.http.delete<ResponseVO>(uri, body).pipe(
       catchError(this.handleError)
     );
   }
@@ -71,11 +64,10 @@ export class HttpUtil {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
+      console.error('http出错:', error.error.message);
     } else {
-      console.error( `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+      console.error( `出错状态码: ${error.status}, ` +
+        `出错: ${error.error}`);
     }
     return new ErrorObservable('亲请检查网络');
 

@@ -11,8 +11,6 @@ export class RegisterService {
   getTokenKey() {
     const url = 'account/login?tokenKey=get';
     // 先向后台申请加密tokenKey tokenKey=get
-    // const getKeyParam = new HttpParams().set('tokenKey', 'get');
-
     return this.httpUtil.get(url);
   }
 
@@ -23,6 +21,7 @@ export class RegisterService {
     // AES CBC加密模式
     password = CryptoJS.AES.encrypt(password, tokenKey, {iv: tokenKey, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7}).toString();
     console.log(password);
+
     const param = new HttpParams().append('uid', uid)
       .append('username', username)
       .append('password', password)
@@ -39,6 +38,6 @@ export class RegisterService {
       'timestamp': new Date().toUTCString()
     };
 
-    return this.httpUtil.postJson(url, body);
+    return this.httpUtil.post(url, body);
   }
 }

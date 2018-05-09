@@ -15,8 +15,6 @@ export class LoginService {
   getTokenKey() {
     const url = 'account/login?tokenKey=get';
     // 先向后台申请加密tokenKey tokenKey=get
-    // const getKeyParam = new HttpParams().set('tokenKey', 'get');
-
     return this.httpUtil.get(url);
   }
 
@@ -41,7 +39,7 @@ export class LoginService {
       'timestamp': new Date().toUTCString()
     };
 
-    return this.httpUtil.postJson(url, body);
+    return this.httpUtil.post(url, body);
   }
 
   logout() {
