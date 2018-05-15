@@ -68,7 +68,7 @@ ps(之前是写在下面的太长有点乱)
 0.安装nginx反向代理  
 
 - 这里使用docker安装[nginx-docker](https://github.com/tomsun28/DockerFile/tree/master/nginx)
-- clone 上面的nginx-docker仓库到本地: git clone https://github.com/tomsun28/DockerFile.git
+- clone 上面的nginx-docker仓库到本地: git clone https://gitee.com/tomsun28/DockerFile.git
 - 进入nginx目录修改nginx.conf对应参数: 要代理的后端bootshiro服务IP,要代理的前端usthe地址IP
 - 进入nginx目录下,生成nginx镜像：docker build -t nginx:1.0 .
 - 启动nginx: docker run -d -p 80:80 --name nginx nginx:1.0
@@ -77,7 +77,7 @@ ps(之前是写在下面的太长有点乱)
 1.IDE启动调试  
 
 - fork 项目到自己的仓库(欢迎star^.^)  
-- clone 项目到本地 git clone https://github.com/yourName/usthe.git
+- clone 项目到本地 git clone https://gitee.com/yourName/usthe.git
 - 用WebStorm导入
 - 需要node环境
 - 安装angular cli工具 npm install -g @angular/cli@latest
@@ -94,7 +94,7 @@ ps(之前是写在下面的太长有点乱)
 2.docker本地部署  
 
 - fork 项目到自己的仓库(欢迎star^.^)  
-- clone 项目到本地 git clone https://github.com/yourName/usthe.git
+- clone 项目到本地 git clone https://gitee.com/yourName/usthe.git
 - 修改/src/environments/environments.prod.ts生产环境的apiBaseUrl
 - 前提您已经安装部署了nginx并配置了相关代理url,也存在docker环境([docker常用看这里](https://segmentfault.com/a/1190000013088818))
 - 在项目目录下 docker build -t usthe:1.0 . 
@@ -107,7 +107,7 @@ ps(之前是写在下面的太长有点乱)
 3.jenkins+docker持续集成持续部署CICD  
 
 - fork 项目到自己的仓库(欢迎star^.^)  
-- clone 项目到本地 git clone https://github.com/yourName/usthe.git
+- clone 项目到本地 git clone https://gitee.com/yourName/usthe.git
 - 更改生产和开发环境对应的/src/environments/environments  apiBaseUrl
 - 搭建CICD环境有点繁琐，[看这篇最下面](https://segmentfault.com/a/1190000013088818)
 - 参照搭建完成后,usthe对应的jenkins下运行shell:
@@ -155,14 +155,18 @@ response.addHeader("Access-Control-Max-Age", "120");
 ````
 
 ## 仓库 
+
+gitee:   
+
+[bootshiro](https://gitee.com/tomsun28/bootshiro)   
+[usthe](https://gitee.com/tomsun28/usthe) 
  
 github:  
 
-[bootshiro](https://github.com/tomsun28/bootshiro)       [usthe](https://github.com/tomsun28/usthe)  
+[bootshiro](https://github.com/tomsun28/bootshiro)   
+[usthe](https://github.com/tomsun28/usthe)  
          
-gitee:   
 
-[bootshiro](https://gitee.com/tomsun28/bootshiro)        [usthe](https://gitee.com/tomsun28/usthe) 
 
 。。。。。持续同步更新。。。。
 
