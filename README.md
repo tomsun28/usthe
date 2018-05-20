@@ -37,7 +37,7 @@
 
 #### gate -nginx  
 
-这个nginx作为反向代理服务器，解决了跨域请求的问题。另一个nginx作为angular应用服务器，tomcat作为bootshiro的服务器。  
+这个nginx作为反向代理服务器，解决了跨域请求的问题(现服务器端支持跨域可不用nginx)。另一个nginx作为angular应用服务器，tomcat作为bootshiro的服务器。  
 
 反向代理的nginx.conf见: [conf](https://github.com/tomsun28/DockerFile/blob/master/nginx/nginx.conf)  
 
@@ -65,7 +65,7 @@ ps(之前是写在下面的太长有点乱)
 
 ## 部署  
 --------
-0.安装nginx反向代理  
+0.安装nginx(可选)  
 
 - 这里使用docker安装[nginx-docker](https://github.com/tomsun28/DockerFile/tree/master/nginx)
 - clone 上面的nginx-docker仓库到本地: git clone https://gitee.com/tomsun28/DockerFile.git
@@ -89,7 +89,7 @@ ps(之前是写在下面的太长有点乱)
 - 前提启动了后端[bootshiro](https://github.com/tomsun28/bootshiro)
 - 访问浏览器ok http://localhost
 
-**这个开发环境部署确实有点繁琐需要一定基础,之后有时间简化去掉nginx,但生产环境最好还是要有的**
+**这个本地开发环境部署确实有点繁琐需要一定基础,之后有时间简化去掉nginx,但生产环境最好还是要有的**
 
 2.docker本地部署  
 
@@ -140,19 +140,6 @@ docker run -d -p 4200:80 --name $JOB_NAME $TAG
 
 ````
 
-4.nginx反向代理替换  
-
-由于这个跨域是在nginx上解决的,要使前端真正能访问api需要nginx反向代理bootshiro后端  
-但是如果您不想这样,可以在bootshiro添加拦截器拦截response 给它的header添加点跨域支持:
-````
-response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-response.setHeader("Access-Control-Allow-Credentials", "true");
-response.setHeader("P3P", "CP=CAO PSA OUR");
-response.addHeader("Access-Control-Allow-Methods", "POST,GET,TRACE,OPTIONS");
-response.addHeader("Access-Control-Allow-Headers", "Content-Type,Origin,Accept");
-response.addHeader("Access-Control-Max-Age", "120");
-
-````
 
 ## 仓库 
 
