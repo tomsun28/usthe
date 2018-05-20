@@ -5,7 +5,8 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:80/api/',
+  // apiBaseUrl: 'http://localhost:80/api/',
+  apiBaseUrl: 'http://localhost:8080/',
   appName: 'usThe',
   version: '1.0.0'
 };
