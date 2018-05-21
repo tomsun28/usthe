@@ -82,21 +82,19 @@ ps(之前是写在下面的太长有点乱)
 - 需要node环境
 - 安装angular cli工具 npm install -g @angular/cli@latest
 - 进入项目目录 npm install
-- 修改/src/environments/environments.ts开发环境的apiBaseUrl
-- 前提您已经安装部署了nginx并配置相关代理url
-- apiBaseUrl为nginx地址,约定nginx-url+'/api/'为提供api的后端项目根url,具体可在nginx.conf里修改
+- 修改/src/environments/environments.ts开发环境的apiBaseUrl对应为后端服务器提供api服务地址
+- 若使用nginx做代理(apiBaseUrl为nginx地址,约定nginx-url+'/api/'为提供api的后端项目根url,具体可在nginx.conf里修改)
 - ng serve 启动 
 - 前提启动了后端[bootshiro](https://github.com/tomsun28/bootshiro)
 - 访问浏览器ok http://localhost
 
-**这个本地开发环境部署确实有点繁琐需要一定基础,之后有时间简化去掉nginx,但生产环境最好还是要有的**
+**这个本地开发环境部署现可以去掉nginx,但生产环境最好还是要有的**
 
 2.docker本地部署  
 
 - fork 项目到自己的仓库(欢迎star^.^)  
 - clone 项目到本地 git clone https://gitee.com/yourName/usthe.git
 - 修改/src/environments/environments.prod.ts生产环境的apiBaseUrl
-- 前提您已经安装部署了nginx并配置了相关代理url,也存在docker环境([docker常用看这里](https://segmentfault.com/a/1190000013088818))
 - 在项目目录下 docker build -t usthe:1.0 . 
 - docker images看是否生成镜像成功
 - 运行 docker run -d -p 4300:4200 --name haiLady usthe:1.0
