@@ -86,7 +86,7 @@ ps(之前是写在下面的太长有点乱)
 - 若使用nginx做代理(apiBaseUrl为nginx地址,约定nginx-url+'/api/'为提供api的后端项目根url,具体可在nginx.conf里修改)
 - ng serve 启动 
 - 前提启动了后端[bootshiro](https://github.com/tomsun28/bootshiro)
-- 访问浏览器ok http://localhost
+- 访问浏览器ok http://localhost:4200
 
 **这个本地开发环境部署现可以去掉nginx,但生产环境最好还是要有的**
 
@@ -100,7 +100,7 @@ ps(之前是写在下面的太长有点乱)
 - 运行 docker run -d -p 4300:4200 --name haiLady usthe:1.0
 - docker ps 就可以看见您的haiLady了
 - 前提部署了后端[bootshiro](https://github.com/tomsun28/bootshiro)
-- 访问浏览器 http://localhost
+- 访问浏览器 http://localhost:4300
 
 3.jenkins+docker持续集成持续部署CICD  
 
