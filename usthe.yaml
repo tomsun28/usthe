@@ -8,7 +8,7 @@ metadata:
  labels: 
   app: usthe
 spec:
- replicas: 3
+ replicas: 2
  selector:
   matchLabels:
    app: usthe
@@ -19,7 +19,7 @@ spec:
   spec:
    containers:
    - name: nginx
-     image: https://registry.cn-hangzhou.aliyuncs.com/tomsun28/usthe:latest
+     image: registry.cn-hangzhou.aliyuncs.com/tomsun28/usthe:latest
      ports:
      - containerPort: 80
 
