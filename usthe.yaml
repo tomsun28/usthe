@@ -8,7 +8,7 @@ metadata:
  labels: 
   app: usthe
 spec:
- replicas: 1
+ replicas: 2
  selector:
   matchLabels:
    app: usthe
@@ -19,7 +19,7 @@ spec:
   spec:
    containers:
    - name: nginx
-     image: 127.0.0.1:5000/usthe:USTHE-TAG
+     image: registry-internal.cn-hangzhou.aliyuncs.com/tomsun28/usthe
      ports:
      - containerPort: 80
 
@@ -37,4 +37,4 @@ spec:
    targetPort: 80
    nodePort: 30002
  selector:
-  app: bootshiro
+  app: usthe
