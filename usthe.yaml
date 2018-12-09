@@ -19,7 +19,7 @@ spec:
   spec:
    containers:
    - name: nginx
-     image: registry-internal.cn-hangzhou.aliyuncs.com/tomsun28/usthe
+     image: https://registry-internal.cn-hangzhou.aliyuncs.com/tomsun28/usthe:latest
      ports:
      - containerPort: 80
 
