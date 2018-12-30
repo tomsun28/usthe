@@ -31,10 +31,10 @@ kind: Service
 metadata:
  name: usthe-service
 spec:
- type: NodePort
+# type: NodePort
  ports:
- - port: 80
+ - name: web
+   port: 80
    targetPort: 80
-   nodePort: 30002
  selector:
   app: usthe
