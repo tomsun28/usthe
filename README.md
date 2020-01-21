@@ -68,7 +68,7 @@ ps(之前是写在下面的太长有点乱)
 0.安装nginx(可选)  
 
 - 这里使用docker安装[nginx-docker](https://github.com/tomsun28/DockerFile/tree/master/nginx)
-- clone 上面的nginx-docker仓库到本地: git clone https://gitee.com/tomsun28/DockerFile.git
+- clone 上面的nginx-docker仓库到本地: git clone https://github.com/tomsun28/DockerFile.git
 - 进入nginx目录修改nginx.conf对应参数: 要代理的后端bootshiro服务IP,要代理的前端usthe地址IP
 - 进入nginx目录下,生成nginx镜像：docker build -t nginx:1.0 .
 - 启动nginx: docker run -d -p 80:80 --name nginx nginx:1.0
