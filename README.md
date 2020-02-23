@@ -182,5 +182,7 @@ thanks:
 网络上前辈们的教程文章开源项目
 
 
+Thanks Open Source license support by   [![jetBrains Open Source](/image/jetbrains.svg)](https://www.jetbrains.com/?from=bootshiro)
+
 <br>
 <br>
