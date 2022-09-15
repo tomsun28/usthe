@@ -24,7 +24,7 @@
     "@types/jqueryui": "^1.11.35",
     "admin-lte": "2.3.11",
     "angular-font-awesome": "^3.1.2",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "core-js": "^2.4.1",
     "crypto-js": "^3.1.9-1",
     "font-awesome": "^4.7.0",
