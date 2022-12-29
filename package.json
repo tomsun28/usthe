@@ -36,7 +36,7 @@
     "ionicons": "^3.0.0"
   },
   "devDependencies": {
-    "@angular/cli": "~1.7.3",
+    "@angular/cli": "~15.0.4",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/crypto-js": "^3.1.39",
